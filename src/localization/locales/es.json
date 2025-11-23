@@ -1,5 +1,5 @@
 {
-  "appName": "M001",
+  "appName": "My Wallet",
   "greeting": "¡Bienvenido, {{name}}!",
   "common": {
     "cancel": "Cancelar",
@@ -101,7 +101,7 @@
   },
   "modals": {
     "userAccount": {
-      "title": "M001"
+      "title": "My Wallet"
     },
     "selectLanguageModal": {
       "title": "Seleccionar Idioma",

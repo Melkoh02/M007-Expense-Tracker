@@ -1,4 +1,4 @@
-package com.m001
+package dev.melkoh.mywallet
 
 import android.os.Bundle
 import com.facebook.react.ReactActivity
@@ -16,7 +16,7 @@ class MainActivity : ReactActivity() {
   }
 
   /** Must match your app name in index.js */
-  override fun getMainComponentName(): String = "M001"
+  override fun getMainComponentName(): String = "MyWallet"
 
   /**
    * Use the default delegate (with Fabric toggle)

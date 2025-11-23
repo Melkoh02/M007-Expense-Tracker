@@ -1,4 +1,4 @@
-package com.m001
+package dev.melkoh.mywallet
 
 import android.app.Application
 import com.facebook.react.PackageList
