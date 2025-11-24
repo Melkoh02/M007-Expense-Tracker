@@ -60,6 +60,7 @@ const styles = StyleSheet.create({
   },
   ripple: {
     borderRadius: 50,
+    flexGrow: 1,
   },
   pill: {
     flexDirection: 'row',
