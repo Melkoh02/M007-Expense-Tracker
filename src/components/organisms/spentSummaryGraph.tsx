@@ -42,15 +42,26 @@ const SpentSummaryGraph: React.FC<Props> = ({spentItems}) => {
     [parsedItems],
   );
 
-  /** Convert to PieChart data */
-  const pieData = useMemo(
-    () =>
-      parsedItems.map(item => ({
+  const {outerPieData, innerPieData} = useMemo(() => {
+    // Sort descending by value
+    const sorted = [...parsedItems].sort((a, b) => b.value - a.value);
+
+    const half = Math.ceil(sorted.length / 2);
+
+    const outer = sorted.slice(0, half); // bigger spenders
+    const inner = sorted.slice(half); // smaller spenders
+
+    return {
+      outerPieData: outer.map(item => ({
         value: item.value || 0.0001,
         color: item.color,
       })),
-    [parsedItems],
-  );
+      innerPieData: inner.map(item => ({
+        value: item.value || 0.0001,
+        color: item.color,
+      })),
+    };
+  }, [parsedItems]);
 
   const renderLegendItem = useCallback((item: ParsedItem) => {
     return (
@@ -102,7 +113,7 @@ const SpentSummaryGraph: React.FC<Props> = ({spentItems}) => {
             <>
               {/* Outer ring */}
               <PieChart
-                data={pieData}
+                data={outerPieData}
                 donut
                 radius={80}
                 innerRadius={60}
@@ -114,7 +125,7 @@ const SpentSummaryGraph: React.FC<Props> = ({spentItems}) => {
               {/* Inner ring */}
               <View style={styles.innerRingWrapper}>
                 <PieChart
-                  data={pieData}
+                  data={innerPieData}
                   donut
                   radius={60}
                   innerRadius={40}
