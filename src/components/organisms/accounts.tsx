@@ -68,14 +68,17 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   leftBlock: {
+    flexGrow: 1,
     paddingVertical: 6,
     paddingHorizontal: 12,
     justifyContent: 'center',
   },
   rightBlock: {
+    flexGrow: 1,
     paddingVertical: 6,
     paddingHorizontal: 12,
     justifyContent: 'center',
+    alignItems: 'center',
   },
   leftText: {
     color: '#fff',
