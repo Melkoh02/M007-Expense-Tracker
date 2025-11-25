@@ -1,7 +1,7 @@
 import React, {useMemo, useCallback} from 'react';
 import {View, StyleSheet} from 'react-native';
 import {Surface, Text, IconButton} from 'react-native-paper';
-import Svg, {Path, Circle} from 'react-native-svg';
+import {PieChart} from 'react-native-gifted-charts';
 import {useTheme} from '../../lib/hooks/useAppTheme.ts';
 
 type SpentItem = {
@@ -9,15 +9,9 @@ type SpentItem = {
   spent: string;
   color: string;
 };
-``;
 
 type ParsedItem = SpentItem & {
   value: number;
-};
-
-type Segment = ParsedItem & {
-  startAngle: number;
-  endAngle: number;
 };
 
 type Props = {
@@ -25,51 +19,6 @@ type Props = {
 };
 
 const CHART_SIZE = 160;
-const CENTER = CHART_SIZE / 2;
-
-const RING_THICKNESS = 16;
-const RING_GAP = 8;
-const START_ANGLE = 0;
-
-const OUTER_RADIUS_1 = CHART_SIZE / 2 - 8;
-const INNER_RADIUS_1 = OUTER_RADIUS_1 - RING_THICKNESS;
-
-const OUTER_RADIUS_2 = INNER_RADIUS_1 - RING_GAP;
-const INNER_RADIUS_2 = OUTER_RADIUS_2 - RING_THICKNESS;
-
-const polarToCartesian = (
-  centerX: number,
-  centerY: number,
-  radius: number,
-  angleRad: number,
-) => ({
-  x: centerX + radius * Math.cos(angleRad),
-  y: centerY + radius * Math.sin(angleRad),
-});
-
-const createArcPath = (
-  cx: number,
-  cy: number,
-  innerRadius: number,
-  outerRadius: number,
-  startAngle: number,
-  endAngle: number,
-) => {
-  const startOuter = polarToCartesian(cx, cy, outerRadius, startAngle);
-  const endOuter = polarToCartesian(cx, cy, outerRadius, endAngle);
-  const startInner = polarToCartesian(cx, cy, innerRadius, endAngle);
-  const endInner = polarToCartesian(cx, cy, innerRadius, startAngle);
-
-  const largeArcFlag = endAngle - startAngle > Math.PI ? 1 : 0;
-
-  return [
-    `M ${startOuter.x} ${startOuter.y}`,
-    `A ${outerRadius} ${outerRadius} 0 ${largeArcFlag} 1 ${endOuter.x} ${endOuter.y}`,
-    `L ${startInner.x} ${startInner.y}`,
-    `A ${innerRadius} ${innerRadius} 0 ${largeArcFlag} 0 ${endInner.x} ${endInner.y}`,
-    'Z',
-  ].join(' ');
-};
 
 const SpentSummaryGraph: React.FC<Props> = ({spentItems}) => {
   const theme = useTheme();
@@ -93,76 +42,28 @@ const SpentSummaryGraph: React.FC<Props> = ({spentItems}) => {
     [parsedItems],
   );
 
-  const segments = useMemo<Segment[]>(() => {
-    if (!total) {
-      return [];
-    }
+  /** Convert to PieChart data */
+  const pieData = useMemo(
+    () =>
+      parsedItems.map(item => ({
+        value: item.value || 0.0001,
+        color: item.color,
+      })),
+    [parsedItems],
+  );
 
-    const fullCircle = Math.PI * 2;
-    let currentAngle = START_ANGLE;
-
-    return parsedItems.map(item => {
-      const angle = (item.value / total) * fullCircle;
-      const startAngle = currentAngle;
-      const endAngle = currentAngle + angle;
-      currentAngle = endAngle;
-
-      return {...item, startAngle, endAngle};
-    });
-  }, [parsedItems, total]);
-
-  const renderSegment = useCallback((segment: Segment) => {
-    if (
-      !segment.value ||
-      segment.startAngle === segment.endAngle ||
-      !isFinite(segment.startAngle) ||
-      !isFinite(segment.endAngle)
-    ) {
-      return null;
-    }
-
-    const outerPath = createArcPath(
-      CENTER,
-      CENTER,
-      INNER_RADIUS_1,
-      OUTER_RADIUS_1,
-      segment.startAngle,
-      segment.endAngle,
-    );
-
-    const innerPath = createArcPath(
-      CENTER,
-      CENTER,
-      INNER_RADIUS_2,
-      OUTER_RADIUS_2,
-      segment.startAngle,
-      segment.endAngle,
-    );
-
+  const renderLegendItem = useCallback((item: ParsedItem) => {
     return (
-      <React.Fragment key={segment.name}>
-        <Path d={outerPath} fill={segment.color} />
-        <Path d={innerPath} fill={segment.color} opacity={0.9} />
-      </React.Fragment>
+      <View key={item.name} style={styles.legendItem}>
+        <View style={[styles.legendColor, {backgroundColor: item.color}]} />
+        <Text style={styles.legendLabel}>{item.name}</Text>
+      </View>
     );
   }, []);
 
-  const renderLegendItem = useCallback(
-    (item: ParsedItem) => {
-      return (
-        <View key={item.name} style={styles.legendItem}>
-          <View style={[styles.legendColor, {backgroundColor: item.color}]} />
-          <View style={styles.legendTextBlock}>
-            <Text style={styles.legendLabel}>{item.name}</Text>
-          </View>
-        </View>
-      );
-    },
-    [total],
-  );
-
   return (
     <Surface style={styles.container} elevation={2}>
+      {/* Header */}
       <View style={styles.header}>
         <View>
           <Text style={styles.summaryTitle}>Summary</Text>
@@ -176,23 +77,57 @@ const SpentSummaryGraph: React.FC<Props> = ({spentItems}) => {
         </View>
         <IconButton icon="information-outline" size={20} />
       </View>
+
       <View
-        style={{...styles.headerDivider, backgroundColor: theme.colors.primary}}
+        style={{
+          ...styles.headerDivider,
+          backgroundColor: theme.colors.primary,
+        }}
       />
+
+      {/* Content */}
       <View style={styles.contentRow}>
+        {/* Chart */}
         <View style={styles.chartContainer}>
-          <Svg width={CHART_SIZE} height={CHART_SIZE}>
-            {segments.length === 0 && (
-              <Circle
-                cx={CENTER}
-                cy={CENTER}
-                r={OUTER_RADIUS_2}
-                fill={trackColor}
+          {total === 0 ? (
+            <View
+              style={{
+                height: CHART_SIZE,
+                width: CHART_SIZE,
+                borderRadius: CHART_SIZE / 2,
+                backgroundColor: trackColor,
+              }}
+            />
+          ) : (
+            <>
+              {/* Outer ring */}
+              <PieChart
+                data={pieData}
+                donut
+                radius={80}
+                innerRadius={60}
+                strokeWidth={0}
+                showText={false}
+                innerCircleColor={theme.colors.elevation?.level2}
               />
-            )}
-            {segments.map(renderSegment)}
-          </Svg>
+
+              {/* Inner ring */}
+              <View style={styles.innerRingWrapper}>
+                <PieChart
+                  data={pieData}
+                  donut
+                  radius={60}
+                  innerRadius={40}
+                  strokeWidth={0}
+                  showText={false}
+                  innerCircleColor={theme.colors.elevation?.level2}
+                />
+              </View>
+            </>
+          )}
         </View>
+
+        {/* Legend */}
         <View style={styles.legend}>{parsedItems.map(renderLegendItem)}</View>
       </View>
     </Surface>
@@ -228,18 +163,20 @@ const styles = StyleSheet.create({
     marginTop: 16,
     marginBottom: 16,
     height: 2,
-    alignSelf: 'stretch',
     opacity: 0.6,
   },
   contentRow: {
     flexDirection: 'row',
   },
   chartContainer: {
-    width: 160,
-    height: 160,
+    width: CHART_SIZE,
+    height: CHART_SIZE,
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 24,
+  },
+  innerRingWrapper: {
+    position: 'absolute',
   },
   legend: {
     flex: 1,
@@ -256,19 +193,9 @@ const styles = StyleSheet.create({
     borderRadius: 3,
     marginRight: 10,
   },
-  legendTextBlock: {
-    flexDirection: 'column',
-  },
   legendLabel: {
     fontSize: 13,
     fontWeight: '500',
-  },
-  legendValue: {
-    fontSize: 12,
-    opacity: 0.8,
-  },
-  legendPercentage: {
-    fontWeight: '600',
   },
 });
 
