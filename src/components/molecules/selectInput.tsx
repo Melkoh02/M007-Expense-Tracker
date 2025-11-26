@@ -38,6 +38,14 @@ export default function SelectInput({
   const selectedOption = options.find(o => o.id === value);
   const displayValue = selectedOption ? selectedOption.value : '';
 
+  const handlePress = () => {
+    if (value) {
+      onChange('');
+    } else {
+      visible ? hideModal() : showModal();
+    }
+  };
+
   return (
     <>
       <Pressable onPress={showModal}>
@@ -49,20 +57,12 @@ export default function SelectInput({
           placeholder={placeholder}
           value={displayValue}
           editable={false}
-          style={[
-            {backgroundColor: theme.colors.surface, paddingHorizontal: 0},
-            style,
-          ]}
+          onPress={handlePress}
+          style={[{backgroundColor: 'red', paddingHorizontal: 0}, style]}
           right={
             <TextInput.Icon
               icon={value ? 'close' : visible ? 'menu-up' : 'menu-down'}
-              onPress={() => {
-                if (value) {
-                  onChange('');
-                } else {
-                  visible ? hideModal() : showModal();
-                }
-              }}
+              onPress={handlePress}
             />
           }
         />

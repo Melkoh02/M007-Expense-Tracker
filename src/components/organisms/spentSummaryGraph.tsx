@@ -120,6 +120,7 @@ const SpentSummaryGraph: React.FC<Props> = ({spentItems}) => {
                 strokeWidth={0}
                 showText={false}
                 innerCircleColor={theme.colors.elevation?.level2}
+                // focusOnPress
               />
 
               {/* Inner ring */}
@@ -132,6 +133,7 @@ const SpentSummaryGraph: React.FC<Props> = ({spentItems}) => {
                   strokeWidth={0}
                   showText={false}
                   innerCircleColor={theme.colors.elevation?.level2}
+                  // focusOnPress
                 />
               </View>
             </>
