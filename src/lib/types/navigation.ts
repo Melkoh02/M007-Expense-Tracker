@@ -1,22 +1,9 @@
-import {CompositeNavigationProp} from '@react-navigation/native';
+import {
+  CompositeNavigationProp,
+  NavigatorScreenParams,
+} from '@react-navigation/native';
 import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
 import {DrawerNavigationProp} from '@react-navigation/drawer';
-
-export type DrawerParamList = {
-  MainTabs: undefined;
-  // here goes drawer-only screens if added more in the future.
-};
-
-export type TabParamList = {
-  HomeTab: undefined;
-  SettingsTab: undefined;
-  // here goes bottom-tabs-only screens if added more in the future.
-};
-
-export type SearchBarNavProp = CompositeNavigationProp<
-  BottomTabNavigationProp<TabParamList, 'HomeTab'>,
-  DrawerNavigationProp<DrawerParamList>
->;
 
 export type AuthStackParamList = {
   Login: undefined;
@@ -30,4 +17,29 @@ export type HomeStackParamList = {
 
 export type SettingsStackParamList = {
   Settings: undefined;
+};
+
+export type TransactionStackParamList = {
+  Transaction: undefined;
+};
+
+export type SearchBarNavProp = CompositeNavigationProp<
+  BottomTabNavigationProp<TabParamList, 'HomeTab'>,
+  DrawerNavigationProp<DrawerParamList>
+>;
+
+export type TabParamList = {
+  HomeTab: NavigatorScreenParams<HomeStackParamList>;
+  SettingsTab: NavigatorScreenParams<SettingsStackParamList>;
+  // here goes bottom-tabs-only screens if added more in the future.
+};
+
+export type DrawerParamList = {
+  MainTabs: NavigatorScreenParams<TabParamList>;
+  // here goes drawer-only screens if added more in the future.
+};
+
+export type AppStackParamList = {
+  MainDrawer: NavigatorScreenParams<DrawerParamList>;
+  TransactionStack: NavigatorScreenParams<TransactionStackParamList>;
 };
