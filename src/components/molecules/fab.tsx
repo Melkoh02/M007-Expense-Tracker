@@ -1,8 +1,10 @@
 import React from 'react';
 import {FAB} from 'react-native-paper';
+import {useNavigation} from '../../lib/hooks/useNavigation.ts';
 
 const MainFab = () => {
   const [open, setOpen] = React.useState<boolean>(false);
+  const navigation = useNavigation('AppStack');
 
   return (
     <FAB.Group
@@ -13,7 +15,9 @@ const MainFab = () => {
         {
           icon: 'arrow-up',
           label: 'Arrow Up',
-          onPress: () => {},
+          onPress: () => {
+            navigation.navigate('TransactionStack', {screen: 'Transaction'});
+          },
         },
         {
           icon: 'swap-horizontal',
