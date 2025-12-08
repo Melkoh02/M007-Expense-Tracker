@@ -17,7 +17,7 @@ const MainFab = () => {
       actions={[
         {
           icon: 'arrow-up',
-          label: t('fab.expense'),
+          label: t('common.expense'),
           onPress: () => {
             navigation.navigate('TransactionStack', {
               screen: 'Transaction',
@@ -27,7 +27,7 @@ const MainFab = () => {
         },
         {
           icon: 'swap-horizontal',
-          label: t('fab.transfer'),
+          label: t('common.transfer'),
           onPress: () => {
             navigation.navigate('TransactionStack', {
               screen: 'Transaction',
@@ -37,7 +37,7 @@ const MainFab = () => {
         },
         {
           icon: 'arrow-down',
-          label: t('fab.income'),
+          label: t('common.income'),
           onPress: () => {
             navigation.navigate('TransactionStack', {
               screen: 'Transaction',

@@ -10,6 +10,9 @@
     "continue": "Continue",
     "search": "Search your wallet",
     "loading": "Loading",
+    "expense": "Expense",
+    "transfer": "Transfer",
+    "income": "Income",
     "relative": {
       "just_now": "just now",
       "past": {
@@ -121,9 +124,7 @@
     "successLogin": "Logged in! :D",
     "badReqLogin": "Incorrect Email or Password, please try again"
   },
-  "fab": {
-    "expense": "Expense",
-    "transfer": "Transfer",
-    "income": "Income"
+  "transaction": {
+    "transactionScreenTitle": "New {{TRANSACTION_TYPE}}"
   }
 }

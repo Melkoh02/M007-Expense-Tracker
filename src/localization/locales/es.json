@@ -10,6 +10,9 @@
     "continue": "Continuar",
     "search": "Busca en tu billetera",
     "loading": "Cargando",
+    "expense": "Gasto",
+    "transfer": "Traspaso",
+    "income": "Ingreso",
     "relative": {
       "just_now": "ahora mismo",
       "past": {
@@ -121,9 +124,7 @@
     "successLogin": "Sesión iniciada! :D",
     "badReqLogin": "Email o Contraseña incorrecta, vuelva a intentar"
   },
-  "fab": {
-    "expense": "Gasto",
-    "transfer": "Traspaso",
-    "income": "Ingreso"
+  "transaction": {
+    "transactionScreenTitle": "Nuevo {{TRANSACTION_TYPE}}"
   }
 }
