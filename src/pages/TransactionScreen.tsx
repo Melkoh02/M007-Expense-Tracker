@@ -5,10 +5,12 @@ import {TransactionStackParamList} from '../lib/types/navigation.ts';
 
 type Props = NativeStackScreenProps<TransactionStackParamList, 'Transaction'>;
 
-export default function TransactionScreen({}: Props) {
+export default function TransactionScreen({route}: Props) {
+  const transactionType = route.params.transactionType;
+
   return (
     <BaseLayout>
-      <Text>Transaction Screen</Text>
+      <Text>{transactionType}</Text>
     </BaseLayout>
   );
 }

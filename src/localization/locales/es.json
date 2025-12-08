@@ -120,5 +120,10 @@
   "backendRes": {
     "successLogin": "Sesión iniciada! :D",
     "badReqLogin": "Email o Contraseña incorrecta, vuelva a intentar"
+  },
+  "fab": {
+    "expense": "Gasto",
+    "transfer": "Traspaso",
+    "income": "Ingreso"
   }
 }

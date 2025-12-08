@@ -120,5 +120,10 @@
   "backendRes": {
     "successLogin": "Logged in! :D",
     "badReqLogin": "Incorrect Email or Password, please try again"
+  },
+  "fab": {
+    "expense": "Expense",
+    "transfer": "Transfer",
+    "income": "Income"
   }
 }
