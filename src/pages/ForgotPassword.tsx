@@ -6,14 +6,16 @@ import {Field, FormikProvider, useFormik} from 'formik';
 import * as Yup from 'yup';
 import FormikEmailInput from '../components/formik/FormikEmailInput.tsx';
 import {Button} from 'react-native-paper';
-import {useNavigation} from '../lib/hooks/useNavigation.ts';
 import BaseLayout from '../components/templates/BaseLayout.tsx';
 import AuthHeader from '../components/molecules/AuthHeader.tsx';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {AuthStackParamList} from '../lib/types/navigation.ts';
 
-export default function ForgotPassword() {
+type Props = NativeStackScreenProps<AuthStackParamList, 'ForgotPassword'>;
+
+export default function ForgotPassword({navigation}: Props) {
   const {t} = useTranslation();
   const api = useApi();
-  const navigation = useNavigation('AuthStack');
   const [loading, setLoading] = React.useState(false);
 
   const forgotPassword = (data: {email: string}) => {

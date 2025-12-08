@@ -3,8 +3,12 @@ import {useTranslation} from 'react-i18next';
 import {observer} from 'mobx-react-lite';
 import {useTheme} from '../lib/hooks/useAppTheme';
 import BaseLayout from '../components/templates/BaseLayout.tsx';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {SettingsStackParamList} from '../lib/types/navigation.ts';
 
-const SettingsScreen = () => {
+type Props = NativeStackScreenProps<SettingsStackParamList, 'Settings'>;
+
+const SettingsScreen = ({}: Props) => {
   const theme = useTheme();
   const {t} = useTranslation();
 

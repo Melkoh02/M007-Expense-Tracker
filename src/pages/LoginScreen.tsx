@@ -8,14 +8,16 @@ import FormikEmailInput from '../components/formik/FormikEmailInput.tsx';
 import FormikPasswordInput from '../components/formik/FormikPasswordInput.tsx';
 import {Button, Text} from 'react-native-paper';
 import {useStore} from '../lib/hooks/useStore.ts';
-import {useNavigation} from '../lib/hooks/useNavigation.ts';
 import BaseLayout from '../components/templates/BaseLayout.tsx';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {AuthStackParamList} from '../lib/types/navigation.ts';
 
-export default function LoginScreen() {
+type Props = NativeStackScreenProps<AuthStackParamList, 'Login'>;
+
+export default function LoginScreen({navigation}: Props) {
   const {t} = useTranslation();
   const api = useApi();
   const rootStore = useStore();
-  const navigation = useNavigation('AuthStack');
   const [loading, setLoading] = React.useState(false);
 
   const login = (data: {email: string; password: string}) => {

@@ -9,16 +9,18 @@ import FormikEmailInput from '../components/formik/FormikEmailInput.tsx';
 import FormikPasswordInput from '../components/formik/FormikPasswordInput.tsx';
 import {Button, Text} from 'react-native-paper';
 import {useStore} from '../lib/hooks/useStore.ts';
-import {useNavigation} from '@react-navigation/native';
 import BaseLayout from '../components/templates/BaseLayout.tsx';
 import AuthHeader from '../components/molecules/AuthHeader.tsx';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {AuthStackParamList} from '../lib/types/navigation.ts';
 
-export default function SignUpScreen() {
+type Props = NativeStackScreenProps<AuthStackParamList, 'SignUp'>;
+
+export default function SignUpScreen({navigation}: Props) {
   const theme = useTheme();
   const {t} = useTranslation();
   const api = useApi();
   const rootStore = useStore();
-  const navigation = useNavigation();
   const [loading, setLoading] = React.useState(false);
 
   const signUp = (data: {email: string; password: string}) => {

@@ -4,6 +4,7 @@ import {
 } from '@react-navigation/native';
 import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
 import {DrawerNavigationProp} from '@react-navigation/drawer';
+import {TransactionType} from '../constants/transaction.ts';
 
 export type AuthStackParamList = {
   Login: undefined;
@@ -20,7 +21,9 @@ export type SettingsStackParamList = {
 };
 
 export type TransactionStackParamList = {
-  Transaction: undefined;
+  Transaction: {
+    transactionType: TransactionType;
+  };
 };
 
 export type SearchBarNavProp = CompositeNavigationProp<
