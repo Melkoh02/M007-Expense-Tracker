@@ -6,11 +6,7 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import {
-  Edge,
-  SafeAreaProvider,
-  SafeAreaView,
-} from 'react-native-safe-area-context';
+import {Edge, SafeAreaView} from 'react-native-safe-area-context';
 import {useTheme} from '../../lib/hooks/useAppTheme';
 
 type BaseLayoutProps = {
@@ -34,25 +30,23 @@ const BaseLayout = ({
   }, [disableKeyboardDismiss]);
 
   return (
-    <SafeAreaProvider>
-      <SafeAreaView
-        edges={insetsEdges}
-        style={{
-          flex: 1,
-          backgroundColor: theme.colors.background,
-        }}>
-        <StatusBar
-          barStyle={theme.scheme === 'dark' ? 'light-content' : 'dark-content'}
-        />
-        <TouchableWithoutFeedback
-          onPress={handleBackgroundPress}
-          accessible={false}>
-          <View style={[{flex: 1, paddingHorizontal: 18}, extraStyles]}>
-            {children}
-          </View>
-        </TouchableWithoutFeedback>
-      </SafeAreaView>
-    </SafeAreaProvider>
+    <SafeAreaView
+      edges={insetsEdges}
+      style={{
+        flex: 1,
+        backgroundColor: theme.colors.background,
+      }}>
+      <StatusBar
+        barStyle={theme.scheme === 'dark' ? 'light-content' : 'dark-content'}
+      />
+      <TouchableWithoutFeedback
+        onPress={handleBackgroundPress}
+        accessible={false}>
+        <View style={[{flex: 1, paddingHorizontal: 18}, extraStyles]}>
+          {children}
+        </View>
+      </TouchableWithoutFeedback>
+    </SafeAreaView>
   );
 };
 

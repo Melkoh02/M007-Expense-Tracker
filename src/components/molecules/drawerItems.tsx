@@ -1,5 +1,9 @@
 import React from 'react';
-import {StyleSheet, View, Linking} from 'react-native';
+
+import {Linking, StyleSheet, View} from 'react-native';
+
+import {DrawerContentScrollView} from '@react-navigation/drawer';
+import {useTranslation} from 'react-i18next';
 import {
   Button,
   Drawer,
@@ -7,8 +11,8 @@ import {
   Text,
   TouchableRipple,
 } from 'react-native-paper';
-import {useTranslation} from 'react-i18next';
-import {DrawerContentScrollView} from '@react-navigation/drawer';
+import {SafeAreaView} from 'react-native-safe-area-context';
+
 import {useTheme} from '../../lib/hooks/useAppTheme.ts';
 import {useStore} from '../../lib/hooks/useStore.ts';
 import SelectLanguageModal from '../organisms/selectLanguageModal.tsx';
@@ -77,59 +81,61 @@ export default function DrawerItems() {
   ];
 
   return (
-    <BaseLayout>
-      <DrawerContentScrollView
-        alwaysBounceVertical={false}
-        style={styles.noPadding}
-        contentContainerStyle={{...styles.noPadding, flexGrow: 1}}>
-        <View
-          style={{
-            flexGrow: 1,
-            justifyContent: 'space-between',
-          }}>
-          <View>
-            <FlatDrawerSection
-              showDivider={true}
-              title={t('drawer.links.title', 'Links')}>
-              {DrawerItemsData.map(({key, ...item}, index) => (
+    <SafeAreaView edges={['top', 'bottom']} style={{flex: 1}}>
+      <BaseLayout>
+        <DrawerContentScrollView
+          alwaysBounceVertical={false}
+          style={styles.noPadding}
+          contentContainerStyle={{...styles.noPadding, flexGrow: 1}}>
+          <View
+            style={{
+              flexGrow: 1,
+              justifyContent: 'space-between',
+            }}>
+            <View>
+              <FlatDrawerSection
+                showDivider={true}
+                title={t('drawer.links.title', 'Links')}>
+                {DrawerItemsData.map(({key, ...item}, index) => (
+                  <Drawer.Item
+                    style={styles.noMargin}
+                    key={key}
+                    {...item}
+                    onPress={() => {
+                      item.onPress?.();
+                    }}
+                  />
+                ))}
+              </FlatDrawerSection>
+              <FlatDrawerSection
+                showDivider={true}
+                title={t('drawer.preferences')}>
                 <Drawer.Item
                   style={styles.noMargin}
-                  key={key}
-                  {...item}
-                  onPress={() => {
-                    item.onPress?.();
-                  }}
+                  onPress={() => setSelectLanguageModalVisible(true)}
+                  label={t('drawer.language')}
                 />
-              ))}
-            </FlatDrawerSection>
-            <FlatDrawerSection
-              showDivider={true}
-              title={t('drawer.preferences')}>
-              <Drawer.Item
-                style={styles.noMargin}
-                onPress={() => setSelectLanguageModalVisible(true)}
-                label={t('drawer.language')}
-              />
-              <TouchableRipple onPress={themeStore.toggle}>
-                <View style={styles.preference}>
-                  <Text variant="labelLarge">{t('drawer.darkTheme')}</Text>
-                  <View pointerEvents="none">
-                    <Switch value={isDarkTheme} />
+                <TouchableRipple onPress={themeStore.toggle}>
+                  <View style={styles.preference}>
+                    <Text variant="labelLarge">{t('drawer.darkTheme')}</Text>
+                    <View pointerEvents="none">
+                      <Switch value={isDarkTheme} />
+                    </View>
                   </View>
-                </View>
-              </TouchableRipple>
-            </FlatDrawerSection>
+                </TouchableRipple>
+              </FlatDrawerSection>
+            </View>
+            <Button onPress={userStore.logout} textColor={theme.colors.error}>
+              {t('settings.logout')}
+            </Button>
           </View>
-          <Button onPress={userStore.logout} textColor={theme.colors.error}>
-            {t('settings.logout')}
-          </Button>
-        </View>
-        <SelectLanguageModal
-          isVisible={selectLanguageModalVisible}
-          onDismiss={() => setSelectLanguageModalVisible(false)}
-        />
-      </DrawerContentScrollView>
-    </BaseLayout>
+          <SelectLanguageModal
+            isVisible={selectLanguageModalVisible}
+            onDismiss={() => setSelectLanguageModalVisible(false)}
+          />
+        </DrawerContentScrollView>
+      </BaseLayout>
+    </SafeAreaView>
   );
 }
 

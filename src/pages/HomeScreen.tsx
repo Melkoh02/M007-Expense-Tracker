@@ -1,10 +1,12 @@
 import React, {useState} from 'react';
-import MainSearchBar from '../components/molecules/searchBar.tsx';
+
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+
 import MainFab from '../components/molecules/fab.tsx';
-import BaseLayout from '../components/templates/BaseLayout.tsx';
+import MainSearchBar from '../components/molecules/searchBar.tsx';
 import Accounts from '../components/organisms/accounts.tsx';
 import SpentSummaryGraph from '../components/organisms/spentSummaryGraph.tsx';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import BaseLayout from '../components/templates/BaseLayout.tsx';
 import {HomeStackParamList} from '../lib/types/navigation.ts';
 
 const accountsData = [
@@ -79,14 +81,16 @@ export default function HomeScreen({}: Props) {
   const [searchQuery, setSearchQuery] = useState('');
 
   return (
-    <BaseLayout>
-      <MainSearchBar
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-      />
-      <Accounts accountsData={accountsData} />
-      <SpentSummaryGraph spentItems={summarySpendingAmount} />
+    <>
+      <BaseLayout>
+        <MainSearchBar
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+        />
+        <Accounts accountsData={accountsData} />
+        <SpentSummaryGraph spentItems={summarySpendingAmount} />
+      </BaseLayout>
       <MainFab />
-    </BaseLayout>
+    </>
   );
 }
