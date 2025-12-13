@@ -1,8 +1,10 @@
 import React from 'react';
-import {FAB} from 'react-native-paper';
-import {useNavigation} from '../../lib/hooks/useNavigation.ts';
-import {TransactionType} from '../../lib/constants/transaction.ts';
+
 import {useTranslation} from 'react-i18next';
+import {FAB} from 'react-native-paper';
+
+import {TransactionType} from '../../lib/constants/transaction.ts';
+import {useNavigation} from '../../lib/hooks/useNavigation.ts';
 
 const MainFab = () => {
   const [open, setOpen] = React.useState<boolean>(false);

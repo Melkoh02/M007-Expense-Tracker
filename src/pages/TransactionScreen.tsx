@@ -19,10 +19,7 @@ export default function TransactionScreen({navigation, route}: Props) {
   });
 
   useEffect(() => {
-    navigation.setOptions({
-      title: title,
-      headerShown: true,
-    });
+    navigation.setOptions({title, headerShown: true});
   }, [navigation, title]);
 
   return (

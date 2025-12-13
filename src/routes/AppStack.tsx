@@ -1,8 +1,10 @@
 import React from 'react';
+
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+
 import MainDrawer from '../components/molecules/drawer';
-import TransactionStack from './stacks/TransactionStack';
 import {AppStackParamList} from '../lib/types/navigation';
+import TransactionStack from './stacks/TransactionStack';
 
 const Stack = createNativeStackNavigator<AppStackParamList>();
 
