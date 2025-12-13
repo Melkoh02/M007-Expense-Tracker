@@ -1,4 +1,4 @@
-import {useEffect} from 'react';
+import {useLayoutEffect} from 'react';
 
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useTranslation} from 'react-i18next';
@@ -18,7 +18,7 @@ export default function TransactionScreen({navigation, route}: Props) {
     TRANSACTION_TYPE: transactionTypeLabel,
   });
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     navigation.setOptions({title, headerShown: true});
   }, [navigation, title]);
 
