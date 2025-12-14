@@ -1,12 +1,14 @@
 import React from 'react';
+
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import HomeStack from './stacks/HomeStack';
-import SettingsStack from './stacks/SettingsStack';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import {BottomNavigation} from 'react-native-paper';
 import {CommonActions} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
+import {BottomNavigation} from 'react-native-paper';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+
 import {TabParamList} from '../lib/types/navigation.ts';
+import HomeStack from './stacks/HomeStack';
+import SettingsStack from './stacks/SettingsStack';
 
 const Tab = createBottomTabNavigator<TabParamList>();
 

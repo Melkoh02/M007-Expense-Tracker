@@ -8,7 +8,7 @@ import {useNavigation} from '../../lib/hooks/useNavigation.ts';
 
 const MainFab = () => {
   const [open, setOpen] = React.useState<boolean>(false);
-  const navigation = useNavigation('AppStack');
+  const navigation = useNavigation('HomeStack');
   const {t} = useTranslation();
 
   return (
@@ -21,8 +21,8 @@ const MainFab = () => {
           icon: 'arrow-up',
           label: t('common.expense'),
           onPress: () => {
-            navigation.navigate('TransactionStack', {
-              screen: 'Transaction',
+            navigation.navigate('Transaction', {
+              screen: 'TransactionScreen',
               params: {transactionType: TransactionType.EXPENSE},
             });
           },
@@ -31,8 +31,8 @@ const MainFab = () => {
           icon: 'swap-horizontal',
           label: t('common.transfer'),
           onPress: () => {
-            navigation.navigate('TransactionStack', {
-              screen: 'Transaction',
+            navigation.navigate('Transaction', {
+              screen: 'TransactionScreen',
               params: {transactionType: TransactionType.TRANSFER},
             });
           },
@@ -41,8 +41,8 @@ const MainFab = () => {
           icon: 'arrow-down',
           label: t('common.income'),
           onPress: () => {
-            navigation.navigate('TransactionStack', {
-              screen: 'Transaction',
+            navigation.navigate('Transaction', {
+              screen: 'TransactionScreen',
               params: {transactionType: TransactionType.INCOME},
             });
           },

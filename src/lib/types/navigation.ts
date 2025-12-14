@@ -1,9 +1,10 @@
+import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
+import {DrawerNavigationProp} from '@react-navigation/drawer';
 import {
   CompositeNavigationProp,
   NavigatorScreenParams,
 } from '@react-navigation/native';
-import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
-import {DrawerNavigationProp} from '@react-navigation/drawer';
+
 import {TransactionType} from '../constants/transaction.ts';
 
 export type AuthStackParamList = {
@@ -14,6 +15,7 @@ export type AuthStackParamList = {
 
 export type HomeStackParamList = {
   Home: undefined;
+  Transaction: NavigatorScreenParams<TransactionStackParamList>;
 };
 
 export type SettingsStackParamList = {
@@ -21,7 +23,7 @@ export type SettingsStackParamList = {
 };
 
 export type TransactionStackParamList = {
-  Transaction: {
+  TransactionScreen: {
     transactionType: TransactionType;
   };
 };
@@ -44,5 +46,4 @@ export type DrawerParamList = {
 
 export type AppStackParamList = {
   MainDrawer: NavigatorScreenParams<DrawerParamList>;
-  TransactionStack: NavigatorScreenParams<TransactionStackParamList>;
 };

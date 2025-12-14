@@ -8,7 +8,10 @@ import BaseLayout from '../components/templates/BaseLayout.tsx';
 import {getTransactionTypeLabel} from '../lib/helpers/transaction.ts';
 import {TransactionStackParamList} from '../lib/types/navigation.ts';
 
-type Props = NativeStackScreenProps<TransactionStackParamList, 'Transaction'>;
+type Props = NativeStackScreenProps<
+  TransactionStackParamList,
+  'TransactionScreen'
+>;
 
 export default function TransactionScreen({navigation, route}: Props) {
   const transactionType = route.params.transactionType;
@@ -19,7 +22,9 @@ export default function TransactionScreen({navigation, route}: Props) {
   });
 
   useLayoutEffect(() => {
-    navigation.setOptions({title, headerShown: true});
+    const parent = navigation.getParent();
+    if (!parent) return;
+    parent.setOptions({title, headerShown: true});
   }, [navigation, title]);
 
   return (
