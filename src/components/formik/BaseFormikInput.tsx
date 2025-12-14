@@ -1,16 +1,26 @@
 import React from 'react';
+
 import {View} from 'react-native';
-import {TextInput, Text} from 'react-native-paper';
-import {BaseFormikInputProps} from '../../lib/types/formik.ts';
-import {useTheme} from '../../lib/hooks/useAppTheme.ts';
+
 import {getIn} from 'formik';
+import {Text, TextInput} from 'react-native-paper';
+
+import {useTheme} from '../../lib/hooks/useAppTheme.ts';
+import {BaseFormikInputProps} from '../../lib/types/formik.ts';
 
 export function BaseFormikInput({
   field,
   form,
   style,
+  displayValue,
+  onValueChange,
+  onFieldBlur,
   ...rest
-}: BaseFormikInputProps) {
+}: BaseFormikInputProps & {
+  displayValue?: string;
+  onValueChange?: (text: string) => void;
+  onFieldBlur?: () => void;
+}) {
   const theme = useTheme();
 
   const error = getIn(form.errors, field.name);
@@ -21,9 +31,9 @@ export function BaseFormikInput({
     <View>
       <TextInput
         {...rest}
-        value={field.value}
-        onChangeText={field.onChange(field.name)}
-        onBlur={field.onBlur(field.name)}
+        value={displayValue ?? field.value}
+        onChangeText={onValueChange ?? field.onChange(field.name)}
+        onBlur={onFieldBlur ?? field.onBlur(field.name)}
         error={showError}
         style={[
           {backgroundColor: theme.colors.surface, paddingHorizontal: 0},
