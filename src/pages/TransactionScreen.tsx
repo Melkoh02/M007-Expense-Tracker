@@ -1,8 +1,9 @@
 import {useLayoutEffect} from 'react';
 
+import {View} from 'react-native';
+
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useTranslation} from 'react-i18next';
-import {Text} from 'react-native-paper';
 
 import BaseLayout from '../components/templates/BaseLayout.tsx';
 import {getTransactionTypeLabel} from '../lib/helpers/transaction.ts';
@@ -29,7 +30,11 @@ export default function TransactionScreen({navigation, route}: Props) {
 
   return (
     <BaseLayout>
-      <Text>{title}</Text>
+      <View
+        style={{
+          // backgroundColor: 'black',
+          flex: 1,
+        }}></View>
     </BaseLayout>
   );
 }

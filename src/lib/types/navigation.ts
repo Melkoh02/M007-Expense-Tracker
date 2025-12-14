@@ -15,7 +15,6 @@ export type AuthStackParamList = {
 
 export type HomeStackParamList = {
   Home: undefined;
-  Transaction: NavigatorScreenParams<TransactionStackParamList>;
 };
 
 export type SettingsStackParamList = {
@@ -46,4 +45,5 @@ export type DrawerParamList = {
 
 export type AppStackParamList = {
   MainDrawer: NavigatorScreenParams<DrawerParamList>;
+  TransactionFlow: NavigatorScreenParams<TransactionStackParamList>;
 };

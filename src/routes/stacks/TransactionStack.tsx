@@ -7,8 +7,12 @@ const Stack = createNativeStackNavigator<TransactionStackParamList>();
 
 export default function TransactionStack() {
   return (
-    <Stack.Navigator screenOptions={{headerShown: false}}>
-      <Stack.Screen name="TransactionScreen" component={TransactionScreen} />
+    <Stack.Navigator>
+      <Stack.Screen
+        name="TransactionScreen"
+        component={TransactionScreen}
+        options={{headerShown: false}}
+      />
     </Stack.Navigator>
   );
 }
