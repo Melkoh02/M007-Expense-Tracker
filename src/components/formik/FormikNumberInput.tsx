@@ -10,13 +10,14 @@ export default function FormikNumberInput({
   ...rest
 }: FormikNumberInputProps & {sanitizeMode?: 'number' | 'amount'}) {
   const rawValue = field.value == null ? '' : String(field.value);
+  const displayValue = rest.displayValue ?? rawValue;
 
   return (
     <BaseFormikInput
       {...rest}
       field={field}
       form={form}
-      displayValue={rawValue}
+      displayValue={displayValue}
       keyboardType={allowDecimal ? 'decimal-pad' : 'number-pad'}
       onValueChange={text => {
         const sanitized = sanitizeNumericInput(text, {
