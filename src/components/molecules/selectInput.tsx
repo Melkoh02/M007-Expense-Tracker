@@ -1,6 +1,9 @@
 import React, {useMemo, useState} from 'react';
+
 import {Pressable, ScrollView, StyleSheet, ViewStyle} from 'react-native';
+
 import {List, Modal, Portal, Searchbar, TextInput} from 'react-native-paper';
+
 import {useTheme} from '../../lib/hooks/useAppTheme.ts';
 import {SelectInputProps} from '../../lib/types/selectInput.ts';
 
@@ -58,7 +61,7 @@ export default function SelectInput({
           value={displayValue}
           editable={false}
           onPress={handlePress}
-          style={[{backgroundColor: 'red', paddingHorizontal: 0}, style]}
+          style={[{paddingHorizontal: 0}, style]}
           right={
             <TextInput.Icon
               icon={value ? 'close' : visible ? 'menu-up' : 'menu-down'}
