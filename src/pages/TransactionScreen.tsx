@@ -10,6 +10,7 @@ import FormikSelectInput from '../components/formik/FormikSelectInput.tsx';
 import BaseLayout from '../components/templates/BaseLayout.tsx';
 import {TransactionType} from '../lib/constants/transaction.ts';
 import {getTransactionTypeLabel} from '../lib/helpers/transaction.ts';
+import {useTheme} from '../lib/hooks/useAppTheme.ts';
 import {TransactionStackParamList} from '../lib/types/navigation.ts';
 
 type Props = NativeStackScreenProps<
@@ -20,6 +21,7 @@ type Props = NativeStackScreenProps<
 export default function TransactionScreen({navigation, route}: Props) {
   const transactionType = route.params.transactionType;
   const {t} = useTranslation();
+  const theme = useTheme();
 
   const title = useMemo(() => {
     const transactionTypeLabel = getTransactionTypeLabel(t, transactionType);
@@ -85,7 +87,7 @@ export default function TransactionScreen({navigation, route}: Props) {
           label="Transaction Type"
           options={transactionTypeOptions}
           showSearch={false}
-          style={{alignItems: 'center'}}
+          style={{backgroundColor: theme.colors.background}}
         />
         <Field
           component={FormikAmountInput}
