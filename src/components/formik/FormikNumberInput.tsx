@@ -8,9 +8,10 @@ export default function FormikNumberInput({
   allowDecimal = true,
   sanitizeMode = 'number',
   ...rest
-}: FormikNumberInputProps & {sanitizeMode?: 'number' | 'amount'}) {
+}: FormikNumberInputProps) {
   const rawValue = field.value == null ? '' : String(field.value);
   const displayValue = rest.displayValue ?? rawValue;
+  const shouldSelectAllOnFocus = rawValue === '0';
 
   return (
     <BaseFormikInput
@@ -27,6 +28,7 @@ export default function FormikNumberInput({
         form.setFieldValue(field.name, sanitized);
       }}
       onFieldBlur={() => form.setFieldTouched(field.name, true)}
+      selectAllOnFocus={rest.selectAllOnFocus ?? shouldSelectAllOnFocus}
     />
   );
 }

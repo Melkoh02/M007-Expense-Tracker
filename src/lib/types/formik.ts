@@ -22,6 +22,7 @@ export type BaseFormikInputProps = {
   displayValue?: string;
   onValueChange?: (text: string) => void;
   onFieldBlur?: () => void;
+  selectAllOnFocus?: boolean;
 } & Omit<TextInputProps, 'value' | 'onChangeText'> & {label: string};
 
 export interface FormikSelectInputProps

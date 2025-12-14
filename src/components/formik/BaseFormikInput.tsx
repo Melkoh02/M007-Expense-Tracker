@@ -15,12 +15,9 @@ export function BaseFormikInput({
   displayValue,
   onValueChange,
   onFieldBlur,
+  selectAllOnFocus,
   ...rest
-}: BaseFormikInputProps & {
-  displayValue?: string;
-  onValueChange?: (text: string) => void;
-  onFieldBlur?: () => void;
-}) {
+}: BaseFormikInputProps) {
   const theme = useTheme();
 
   const error = getIn(form.errors, field.name);
@@ -34,6 +31,7 @@ export function BaseFormikInput({
         value={displayValue ?? field.value}
         onChangeText={onValueChange ?? field.onChange(field.name)}
         onBlur={onFieldBlur ?? field.onBlur(field.name)}
+        selectTextOnFocus={selectAllOnFocus}
         error={showError}
         style={[
           {backgroundColor: theme.colors.surface, paddingHorizontal: 0},
