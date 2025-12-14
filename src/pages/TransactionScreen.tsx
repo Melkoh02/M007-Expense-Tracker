@@ -5,6 +5,7 @@ import {Field, FormikProvider, useFormik} from 'formik';
 import {useTranslation} from 'react-i18next';
 import * as Yup from 'yup';
 
+import FormikAmountInput from '../components/formik/FormikAmountInput.tsx';
 import FormikSelectInput from '../components/formik/FormikSelectInput.tsx';
 import BaseLayout from '../components/templates/BaseLayout.tsx';
 import {TransactionType} from '../lib/constants/transaction.ts';
@@ -85,6 +86,12 @@ export default function TransactionScreen({navigation, route}: Props) {
           options={transactionTypeOptions}
           showSearch={false}
           style={{alignItems: 'center'}}
+        />
+        <Field
+          component={FormikAmountInput}
+          name="amount"
+          label="Amount"
+          currencySymbol="$"
         />
       </FormikProvider>
     </BaseLayout>
