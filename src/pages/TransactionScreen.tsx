@@ -7,6 +7,7 @@ import * as Yup from 'yup';
 
 import FormikAmountInput from '../components/formik/FormikAmountInput.tsx';
 import FormikSelectInput from '../components/formik/FormikSelectInput.tsx';
+import FormikTextInput from '../components/formik/FormikTextInput.tsx';
 import BaseLayout from '../components/templates/BaseLayout.tsx';
 import {TransactionType} from '../lib/constants/transaction.ts';
 import {getTransactionTypeLabel} from '../lib/helpers/transaction.ts';
@@ -94,6 +95,11 @@ export default function TransactionScreen({navigation, route}: Props) {
           name="amount"
           label="Amount"
           currencySymbol="$"
+        />
+        <Field
+          component={FormikTextInput}
+          name="description"
+          label="Description"
         />
       </FormikProvider>
     </BaseLayout>

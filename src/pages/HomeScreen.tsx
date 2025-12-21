@@ -82,7 +82,7 @@ export default function HomeScreen({}: Props) {
 
   return (
     <>
-      <BaseLayout>
+      <BaseLayout scrollable>
         <MainSearchBar
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
