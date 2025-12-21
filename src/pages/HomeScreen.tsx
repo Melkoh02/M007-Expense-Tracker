@@ -27,7 +27,7 @@ function HomeScreen({}: Props) {
 
   return (
     <>
-      <BaseLayout scrollable>
+      <BaseLayout scrollable edges={['top']}>
         <MainSearchBar
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}

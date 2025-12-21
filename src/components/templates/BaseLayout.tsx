@@ -20,9 +20,8 @@ type BaseLayoutProps = {
   disableKeyboardDismiss?: boolean;
   scrollable?: boolean;
   showsVerticalScrollIndicator?: boolean;
+  edges?: Edge[];
 };
-
-const insetsEdges: Edge[] = ['top', 'bottom'];
 
 const BaseLayout = ({
   disableKeyboardDismiss = false,
@@ -30,6 +29,7 @@ const BaseLayout = ({
   children,
   scrollable = false,
   showsVerticalScrollIndicator = false,
+  edges = ['top', 'bottom'],
 }: BaseLayoutProps) => {
   const theme = useTheme();
 
@@ -40,7 +40,7 @@ const BaseLayout = ({
 
   return (
     <SafeAreaView
-      edges={insetsEdges}
+      edges={edges}
       style={{
         flex: 1,
         backgroundColor: theme.colors.background,

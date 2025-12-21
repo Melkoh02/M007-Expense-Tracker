@@ -74,13 +74,11 @@ export default function TransactionScreen({navigation, route}: Props) {
   });
 
   useLayoutEffect(() => {
-    const parent = navigation.getParent();
-    if (!parent) return;
-    parent.setOptions({title, headerShown: true});
+    navigation.setOptions({title, headerShown: true});
   }, [navigation, title]);
 
   return (
-    <BaseLayout>
+    <BaseLayout edges={[]}>
       <FormikProvider value={formik}>
         <Field
           component={FormikSelectInput}
