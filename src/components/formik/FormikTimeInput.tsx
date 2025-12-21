@@ -1,6 +1,6 @@
 import React, {useCallback, useMemo, useState} from 'react';
 
-import {Keyboard} from 'react-native';
+import {Keyboard, Pressable} from 'react-native';
 
 import {TextInput} from 'react-native-paper';
 import {TimePickerModal} from 'react-native-paper-dates';
@@ -30,21 +30,26 @@ export default function FormikTimeInput({
 
   return (
     <>
-      <FormikTextInput
-        field={field}
-        form={form}
-        label={label}
-        meta={meta}
-        editable={false}
-        displayValue={value}
-        right={<TextInput.Icon icon="clock-outline" onPress={openPicker} />}
-        onFieldBlur={() => {
-          form.setFieldTouched(field.name, true, false);
-        }}
-      />
+      <Pressable onPress={openPicker}>
+        <FormikTextInput
+          field={field}
+          form={form}
+          meta={meta}
+          label={label}
+          editable={false}
+          displayValue={value}
+          pointerEvents="none"
+          right={<TextInput.Icon icon="clock-outline" onPress={openPicker} />}
+          onFieldBlur={() => {
+            form.setFieldTouched(field.name, true, false);
+          }}
+        />
+      </Pressable>
+
       <TimePickerModal
         visible={open}
         locale={locale}
+        animationType={'slide'}
         use24HourClock={use24HourClock}
         onDismiss={() => setOpen(false)}
         onConfirm={({hours, minutes}) => {
