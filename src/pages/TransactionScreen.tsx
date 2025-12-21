@@ -14,6 +14,7 @@ import BaseLayout from '../components/templates/BaseLayout.tsx';
 import {TransactionType} from '../lib/constants/transaction.ts';
 import {getTransactionTypeLabel} from '../lib/helpers/transaction.ts';
 import {useTheme} from '../lib/hooks/useAppTheme.ts';
+import {useStore} from '../lib/hooks/useStore.ts';
 import {TransactionStackParamList} from '../lib/types/navigation.ts';
 
 type Props = NativeStackScreenProps<
@@ -25,6 +26,16 @@ export default function TransactionScreen({navigation, route}: Props) {
   const transactionType = route.params.transactionType;
   const {t} = useTranslation();
   const theme = useTheme();
+  const {accountsStore} = useStore();
+
+  const accountOptions = useMemo(
+    () =>
+      accountsStore.accounts.map(account => ({
+        id: account.id,
+        value: account.name,
+      })),
+    [accountsStore.accounts],
+  );
 
   const title = useMemo(() => {
     const transactionTypeLabel = getTransactionTypeLabel(t, transactionType);
@@ -49,6 +60,8 @@ export default function TransactionScreen({navigation, route}: Props) {
       amount: 0,
       dateTime: Date.now(),
       description: '',
+      fromAccount: undefined,
+      toAccount: undefined,
       tags: [],
     }),
     [transactionType],
@@ -57,10 +70,19 @@ export default function TransactionScreen({navigation, route}: Props) {
   const validationSchema = useMemo(
     () =>
       Yup.object({
-        transactionType: Yup.string().required(
-          'Transaction is a required field',
+        transactionType: Yup.string().required('Type is a required field'),
+        amount: Yup.number()
+          .typeError('Amount must be a number')
+          .required('Amount is a required field'),
+
+        fromAccountId: Yup.string().required(
+          'From account is a required field',
         ),
-        amount: Yup.number().required('amount is a required field'),
+        toAccountId: Yup.string().when('transactionType', {
+          is: TransactionType.TRANSFER,
+          then: schema => schema.required('To account is a required field'),
+          otherwise: schema => schema.notRequired(),
+        }),
       }),
     [],
   );
@@ -106,6 +128,25 @@ export default function TransactionScreen({navigation, route}: Props) {
           label="Amount"
           currencySymbol="$"
         />
+        <Field
+          component={FormikSelectInput}
+          name="fromAccountId"
+          label="From Account"
+          options={accountOptions}
+          showSearch={false}
+          placeholder="Select account"
+          style={{backgroundColor: theme.colors.background}}
+        />
+        {transactionType === TransactionType.TRANSFER && (
+          <Field
+            component={FormikSelectInput}
+            name="toAccountId"
+            label="To Account"
+            options={accountOptions}
+            placeholder="Select account"
+            style={{backgroundColor: theme.colors.background}}
+          />
+        )}
         <Field
           component={FormikTextInput}
           name="description"
