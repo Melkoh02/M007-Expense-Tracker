@@ -5,6 +5,7 @@ import type {
   FormikProps,
 } from 'formik';
 import type {TextInputProps} from 'react-native-paper';
+import {DatePickerInputProps} from 'react-native-paper-dates/lib/typescript/Date/DatePickerInput.shared';
 
 import {SelectInputOptionsProp} from './selectInput.ts';
 
@@ -50,3 +51,38 @@ export type FormikNumberInputProps = BaseFormikInputProps & {
 export type FormikAmountInputProps = BaseFormikInputProps & {
   currencySymbol: string; // e.g. "$"
 };
+
+/**
+ * Date input (react-native-paper-dates DatePickerInput)
+ * Stores a Date (or undefined/null) in Formik.
+ */
+export type FormikDateInputProps = FieldProps &
+  Pick<TextInputProps, 'style'> & {
+    label: string;
+    locale: string;
+  } & Omit<DatePickerInputProps, 'date' | 'onChange' | 'label' | 'locale'>;
+
+/**
+ * Time input (react-native-paper-dates TimePickerModal + a read-only TextInput trigger)
+ * Stores time as "HH:mm" string in Formik.
+ */
+export type FormikTimeInputProps = FieldProps &
+  Pick<TextInputProps, 'style'> & {
+    label: string;
+    locale: string;
+    /**
+     * Optional. Defaults to system preference in the picker lib.
+     */
+    use24HourClock?: boolean;
+    /**
+     * Optional override for how the time is displayed in the input.
+     * Default: HH:mm (zero-padded)
+     */
+    formatLabel?: (hours: number, minutes: number) => string;
+
+    /**
+     * Extra props forwarded to TimePickerModal (kept loose on purpose).
+     * You can pass confirmLabel/cancelLabel/animationType/etc here.
+     */
+    modalProps?: Record<string, any>;
+  };

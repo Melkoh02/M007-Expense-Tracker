@@ -8,8 +8,10 @@ import {useTranslation} from 'react-i18next';
 import * as Yup from 'yup';
 
 import FormikAmountInput from '../components/formik/FormikAmountInput.tsx';
+import FormikDateInput from '../components/formik/FormikDateInput.tsx';
 import FormikSelectInput from '../components/formik/FormikSelectInput.tsx';
 import FormikTextInput from '../components/formik/FormikTextInput.tsx';
+import FormikTimeInput from '../components/formik/FormikTimeInput.tsx';
 import BaseLayout from '../components/templates/BaseLayout.tsx';
 import {TransactionType} from '../lib/constants/transaction.ts';
 import {Col, Row} from '../lib/helpers/formik.tsx';
@@ -115,14 +117,6 @@ export default function TransactionScreen({navigation, route}: Props) {
   return (
     <BaseLayout edges={[]}>
       <FormikProvider value={formik}>
-        <Row gap={0}>
-          <Col>
-            <Field component={FormikTextInput} name="text1" label="Text 1" />
-          </Col>
-          <Col>
-            <Field component={FormikTextInput} name="text2" label="Text 2" />
-          </Col>
-        </Row>
         <Field
           component={FormikSelectInput}
           name="transactionType"
@@ -131,6 +125,25 @@ export default function TransactionScreen({navigation, route}: Props) {
           showSearch={false}
           style={{backgroundColor: theme.colors.background}}
         />
+        <Row gap={0}>
+          <Col>
+            <Field
+              component={FormikDateInput}
+              name="date"
+              label="Date"
+              locale="en"
+            />
+          </Col>
+          <Col>
+            <Field
+              component={FormikTimeInput}
+              name="time"
+              label="Time"
+              locale="en"
+              use24HourClock
+            />
+          </Col>
+        </Row>
         <Field
           component={FormikAmountInput}
           name="amount"
