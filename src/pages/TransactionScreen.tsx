@@ -60,8 +60,8 @@ export default function TransactionScreen({navigation, route}: Props) {
       amount: 0,
       dateTime: Date.now(),
       description: '',
-      fromAccount: undefined,
-      toAccount: undefined,
+      fromAccountId: undefined,
+      toAccountId: undefined,
       tags: [],
     }),
     [transactionType],
@@ -134,16 +134,15 @@ export default function TransactionScreen({navigation, route}: Props) {
           label="From Account"
           options={accountOptions}
           showSearch={false}
-          placeholder="Select account"
           style={{backgroundColor: theme.colors.background}}
         />
-        {transactionType === TransactionType.TRANSFER && (
+        {formik.values.transactionType === TransactionType.TRANSFER && (
           <Field
             component={FormikSelectInput}
             name="toAccountId"
             label="To Account"
             options={accountOptions}
-            placeholder="Select account"
+            showSearch={false}
             style={{backgroundColor: theme.colors.background}}
           />
         )}
