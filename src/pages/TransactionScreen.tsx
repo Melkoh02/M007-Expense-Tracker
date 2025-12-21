@@ -159,6 +159,9 @@ export default function TransactionScreen({navigation, route}: Props) {
           component={FormikTextInput}
           name="description"
           label="Description"
+          multiline
+          numberOfLines={3}
+          textAlignVertical="top"
         />
       </FormikProvider>
     </BaseLayout>
