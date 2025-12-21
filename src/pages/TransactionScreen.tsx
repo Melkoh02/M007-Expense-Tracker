@@ -1,5 +1,7 @@
 import React, {useCallback, useLayoutEffect, useMemo} from 'react';
 
+import {Platform} from 'react-native';
+
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {Field, FormikProvider, useFormik} from 'formik';
 import {useTranslation} from 'react-i18next';
@@ -73,8 +75,18 @@ export default function TransactionScreen({navigation, route}: Props) {
     onSubmit,
   });
 
+  // TODO:
+  //  Improve Header options handling, right now they are applied differently
+  //  per platform due to the following behavior:
+  //  - iOS requires setting options on the parent navigator to correctly
+  //  display the back button
+  //  - Android must use screen-level options; using parent options causes
+  //  gesture/safe-area layout issues (expanded opaque area at the bottom that
+  //  obstructs content)
   useLayoutEffect(() => {
-    navigation.setOptions({title, headerShown: true});
+    Platform.OS === 'android'
+      ? navigation.setOptions({title, headerShown: true})
+      : navigation.getParent()?.setOptions({title, headerShown: true});
   }, [navigation, title]);
 
   return (
