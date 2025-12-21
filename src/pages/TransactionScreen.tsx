@@ -12,6 +12,7 @@ import FormikSelectInput from '../components/formik/FormikSelectInput.tsx';
 import FormikTextInput from '../components/formik/FormikTextInput.tsx';
 import BaseLayout from '../components/templates/BaseLayout.tsx';
 import {TransactionType} from '../lib/constants/transaction.ts';
+import {Col, Row} from '../lib/helpers/formik.tsx';
 import {getTransactionTypeLabel} from '../lib/helpers/transaction.ts';
 import {useTheme} from '../lib/hooks/useAppTheme.ts';
 import {useStore} from '../lib/hooks/useStore.ts';
@@ -114,6 +115,14 @@ export default function TransactionScreen({navigation, route}: Props) {
   return (
     <BaseLayout edges={[]}>
       <FormikProvider value={formik}>
+        <Row gap={0}>
+          <Col>
+            <Field component={FormikTextInput} name="text1" label="Text 1" />
+          </Col>
+          <Col>
+            <Field component={FormikTextInput} name="text2" label="Text 2" />
+          </Col>
+        </Row>
         <Field
           component={FormikSelectInput}
           name="transactionType"
