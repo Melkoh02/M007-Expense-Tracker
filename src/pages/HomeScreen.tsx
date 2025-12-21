@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {observer} from 'mobx-react-lite';
 
 import MainFab from '../components/molecules/fab.tsx';
 import MainSearchBar from '../components/molecules/searchBar.tsx';
@@ -16,7 +17,7 @@ import {HomeStackParamList} from '../lib/types/navigation.ts';
 
 type Props = NativeStackScreenProps<HomeStackParamList, 'Home'>;
 
-export default function HomeScreen({}: Props) {
+function HomeScreen({}: Props) {
   const [searchQuery, setSearchQuery] = useState('');
   const {accountsStore} = useStore();
 
@@ -38,3 +39,5 @@ export default function HomeScreen({}: Props) {
     </>
   );
 }
+
+export default observer(HomeScreen);
