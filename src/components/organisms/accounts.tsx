@@ -4,30 +4,14 @@ import {StyleSheet, View} from 'react-native';
 
 import {Surface, Text, TouchableRipple} from 'react-native-paper';
 
-type AccountItem = {
-  name: string;
-  amount: string;
-  currency: string;
-  color: string;
-  onPress: () => void;
-};
+import {getCurrencySymbol} from '../../lib/helpers/getCurrecySymbol.ts';
+import {Account} from '../../lib/types/accounts.ts';
 
 type Props = {
-  accountsData: AccountItem[];
+  accountsData: Account[];
 };
 
-const getCurrencySymbol = (currency: string) => {
-  switch (currency) {
-    case 'USD':
-      return '$';
-    case 'PYG':
-      return '₲';
-    default:
-      return '';
-  }
-};
-
-const Accounts: React.FC<Props> = ({accountsData}) => {
+const AccountsGrid: React.FC<Props> = ({accountsData}) => {
   return (
     <View style={styles.container}>
       {accountsData.map(acc => (
@@ -43,7 +27,7 @@ const Accounts: React.FC<Props> = ({accountsData}) => {
             <View style={styles.rightBlock}>
               <Text style={styles.rightText}>
                 {getCurrencySymbol(acc.currency)}
-                {acc.amount}
+                {acc.currentTotal}
               </Text>
             </View>
           </Surface>
@@ -92,4 +76,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Accounts;
+export default AccountsGrid;
