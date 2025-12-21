@@ -1,6 +1,12 @@
 import React, {useMemo, useState} from 'react';
 
-import {Pressable, ScrollView, StyleSheet, ViewStyle} from 'react-native';
+import {
+  Keyboard,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  ViewStyle,
+} from 'react-native';
 
 import {List, Modal, Portal, Searchbar, TextInput} from 'react-native-paper';
 
@@ -23,7 +29,12 @@ export default function SelectInput({
   const [visible, setVisible] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
-  const showModal = () => setVisible(true);
+  const showModal = () => {
+    Keyboard.dismiss();
+    requestAnimationFrame(() => {
+      setVisible(true);
+    });
+  };
   const hideModal = () => setVisible(false);
 
   const handleSearchChange = (text: string) => {
@@ -43,10 +54,13 @@ export default function SelectInput({
   const displayValue = selectedOption ? selectedOption.value : '';
 
   const handlePress = () => {
+    Keyboard.dismiss();
     if (value) {
       onChange('');
     } else {
-      visible ? hideModal() : showModal();
+      requestAnimationFrame(() => {
+        setVisible(!visible);
+      });
     }
   };
 
