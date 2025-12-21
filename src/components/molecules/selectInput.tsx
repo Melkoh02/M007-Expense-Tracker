@@ -16,6 +16,7 @@ export default function SelectInput({
   onSearch,
   showSearch = true,
   style,
+  error,
   ...rest
 }: SelectInputProps) {
   const theme = useTheme();
@@ -61,6 +62,7 @@ export default function SelectInput({
           value={displayValue}
           editable={false}
           onPress={handlePress}
+          error={error}
           style={[{paddingHorizontal: 0}, style]}
           right={
             <TextInput.Icon

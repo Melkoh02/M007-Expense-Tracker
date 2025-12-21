@@ -26,6 +26,7 @@ export interface SelectInputProps {
   showSearch?: boolean;
   /** style for the TextInput */
   style?: StyleProp<ViewStyle>;
+  error?: boolean;
 
   /** any other TextInput props (mode, dense, etc.) */
   [key: string]: any;
