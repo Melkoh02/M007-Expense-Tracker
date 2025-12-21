@@ -5,6 +5,7 @@ import {Keyboard, Pressable} from 'react-native';
 import {TextInput} from 'react-native-paper';
 import {TimePickerModal} from 'react-native-paper-dates';
 
+import {useStore} from '../../lib/hooks/useStore.ts';
 import {FormikTimeInputProps} from '../../lib/types/formik.ts';
 import FormikTextInput from './FormikTextInput';
 
@@ -12,12 +13,13 @@ export default function FormikTimeInput({
   field,
   form,
   label,
-  locale,
   meta,
   use24HourClock,
 }: FormikTimeInputProps) {
   const [open, setOpen] = useState(false);
+  const {languageStore} = useStore();
 
+  const locale = languageStore.language;
   const value = useMemo(() => {
     if (!field.value) return '';
     return field.value;

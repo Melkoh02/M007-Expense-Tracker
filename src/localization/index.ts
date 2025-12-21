@@ -1,11 +1,12 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import i18n, {LanguageDetectorAsyncModule, Resource} from 'i18next';
 import {initReactI18next} from 'react-i18next';
 import * as RNLocalize from 'react-native-localize';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import {LANGUAGE_KEY as LANG_KEY} from '../lib/constants';
 import en from './locales/en.json';
 import es from './locales/es.json';
-import {LANGUAGE_KEY as LANG_KEY} from '../lib/constants';
+import {registerPaperDatesTranslations} from './paperDates.ts';
 
 const resources: Resource = {
   en: {translation: en},
@@ -58,5 +59,7 @@ void i18n
       // ready
     },
   );
+
+registerPaperDatesTranslations();
 
 export default i18n;

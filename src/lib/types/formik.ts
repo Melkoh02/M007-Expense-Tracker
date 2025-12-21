@@ -54,12 +54,10 @@ export type FormikAmountInputProps = BaseFormikInputProps & {
 export type FormikDateInputProps = FieldProps &
   Pick<BaseFormikInputProps, 'style'> & {
     label: string;
-    locale: string;
   };
 
 export type FormikTimeInputProps = FieldProps &
   Pick<BaseFormikInputProps, 'style'> & {
     label: string;
-    locale: string;
     use24HourClock?: boolean;
   };

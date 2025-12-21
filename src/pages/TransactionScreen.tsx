@@ -127,19 +127,13 @@ export default function TransactionScreen({navigation, route}: Props) {
         />
         <Row gap={0}>
           <Col>
-            <Field
-              component={FormikDateInput}
-              name="date"
-              label="Date"
-              locale="en"
-            />
+            <Field component={FormikDateInput} name="date" label="Date" />
           </Col>
           <Col>
             <Field
               component={FormikTimeInput}
               name="time"
               label="Time"
-              locale="en"
               use24HourClock
             />
           </Col>

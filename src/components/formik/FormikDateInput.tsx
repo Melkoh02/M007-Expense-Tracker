@@ -5,6 +5,7 @@ import {Keyboard, Pressable} from 'react-native';
 import {TextInput} from 'react-native-paper';
 import {DatePickerModal} from 'react-native-paper-dates';
 
+import {useStore} from '../../lib/hooks/useStore.ts';
 import {FormikDateInputProps} from '../../lib/types/formik.ts';
 import FormikTextInput from './FormikTextInput';
 
@@ -13,9 +14,11 @@ export default function FormikDateInput({
   form,
   label,
   meta,
-  locale,
 }: FormikDateInputProps) {
   const [open, setOpen] = useState(false);
+  const {languageStore} = useStore();
+
+  const locale = languageStore.language;
 
   const value = useMemo(() => {
     if (!field.value) return '';
