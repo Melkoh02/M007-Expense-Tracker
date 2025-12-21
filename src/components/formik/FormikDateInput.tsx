@@ -12,6 +12,7 @@ export default function FormikDateInput({
   field,
   form,
   label,
+  meta,
   locale,
 }: FormikDateInputProps) {
   const [open, setOpen] = useState(false);
@@ -33,6 +34,7 @@ export default function FormikDateInput({
         field={field}
         form={form}
         label={label}
+        meta={meta}
         editable={false}
         displayValue={value}
         right={<TextInput.Icon icon="calendar" onPress={openPicker} />}

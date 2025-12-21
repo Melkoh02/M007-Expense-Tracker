@@ -2,7 +2,6 @@ import React, {useCallback, useMemo, useState} from 'react';
 
 import {Keyboard} from 'react-native';
 
-import {FieldProps} from 'formik';
 import {TextInput} from 'react-native-paper';
 import {TimePickerModal} from 'react-native-paper-dates';
 
@@ -14,6 +13,7 @@ export default function FormikTimeInput({
   form,
   label,
   locale,
+  meta,
   use24HourClock,
 }: FormikTimeInputProps) {
   const [open, setOpen] = useState(false);
@@ -34,6 +34,7 @@ export default function FormikTimeInput({
         field={field}
         form={form}
         label={label}
+        meta={meta}
         editable={false}
         displayValue={value}
         right={<TextInput.Icon icon="clock-outline" onPress={openPicker} />}
