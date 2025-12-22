@@ -33,6 +33,8 @@ export default function TransactionScreen({navigation, route}: Props) {
   const theme = useTheme();
   const {accountsStore} = useStore();
 
+  const now = useMemo(() => new Date(), []);
+
   const accountOptions = useMemo(
     () =>
       accountsStore.accounts.map(account => ({
@@ -63,8 +65,10 @@ export default function TransactionScreen({navigation, route}: Props) {
     () => ({
       transactionType,
       amount: 0,
-      date: undefined,
-      time: undefined,
+      date: now,
+      time: `${String(now.getHours()).padStart(2, '0')}:${String(
+        now.getMinutes(),
+      ).padStart(2, '0')}`,
       fromAccountId: undefined,
       toAccountId: undefined,
       description: '',
