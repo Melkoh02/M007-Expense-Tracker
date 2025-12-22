@@ -99,12 +99,13 @@ export default function TransactionScreen({navigation, route}: Props) {
 
   const onSubmit = useCallback((values: typeof initialValues) => {
     const dateTime = composeDateTime(values.date, values.time);
+    const isTransfer = values.transactionType === TransactionType.TRANSFER;
 
     const payload = {
       transactionType: values.transactionType,
       amount: values.amount,
       fromAccountId: values.fromAccountId,
-      toAccountId: values.toAccountId,
+      toAccountId: isTransfer ? values.toAccountId : undefined,
       description: values.description,
       tags: values.tags,
       dateTime: dateTime ? dateTime.toISOString() : undefined,
