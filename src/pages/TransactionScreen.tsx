@@ -1,10 +1,11 @@
 import React, {useCallback, useLayoutEffect, useMemo} from 'react';
 
-import {Platform} from 'react-native';
+import {Platform, View} from 'react-native';
 
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {Field, FormikProvider, useFormik} from 'formik';
 import {useTranslation} from 'react-i18next';
+import {Button} from 'react-native-paper';
 import * as Yup from 'yup';
 
 import FormikAmountInput from '../components/formik/FormikAmountInput.tsx';
@@ -119,62 +120,80 @@ export default function TransactionScreen({navigation, route}: Props) {
   }, [navigation, title]);
 
   return (
-    <BaseLayout edges={[]}>
-      <FormikProvider value={formik}>
-        <Field
-          component={FormikSelectInput}
-          name="transactionType"
-          label="Transaction Type"
-          options={transactionTypeOptions}
-          showSearch={false}
-          style={{backgroundColor: theme.colors.background}}
-        />
-        <Row gap={0}>
-          <Col>
-            <Field component={FormikDateInput} name="date" label="Date" />
-          </Col>
-          <Col>
-            <Field
-              component={FormikTimeInput}
-              name="time"
-              label="Time"
-              use24HourClock
-            />
-          </Col>
-        </Row>
-        <Field
-          component={FormikAmountInput}
-          name="amount"
-          label="Amount"
-          currencySymbol="$"
-        />
-        <Field
-          component={FormikSelectInput}
-          name="fromAccountId"
-          label="From Account"
-          options={accountOptions}
-          showSearch={false}
-          style={{backgroundColor: theme.colors.background}}
-        />
-        {formik.values.transactionType === TransactionType.TRANSFER && (
+    <BaseLayout
+      edges={['bottom']}
+      extraStyles={{
+        justifyContent: 'space-between',
+      }}>
+      <View>
+        <FormikProvider value={formik}>
           <Field
             component={FormikSelectInput}
-            name="toAccountId"
-            label="To Account"
+            name="transactionType"
+            label="Transaction Type"
+            options={transactionTypeOptions}
+            showSearch={false}
+            style={{backgroundColor: theme.colors.background}}
+          />
+          <Row gap={0}>
+            <Col>
+              <Field component={FormikDateInput} name="date" label="Date" />
+            </Col>
+            <Col>
+              <Field
+                component={FormikTimeInput}
+                name="time"
+                label="Time"
+                use24HourClock
+              />
+            </Col>
+          </Row>
+          <Field
+            component={FormikAmountInput}
+            name="amount"
+            label="Amount"
+            currencySymbol="$"
+          />
+          <Field
+            component={FormikSelectInput}
+            name="fromAccountId"
+            label="From Account"
             options={accountOptions}
             showSearch={false}
             style={{backgroundColor: theme.colors.background}}
           />
-        )}
-        <Field
-          component={FormikTextInput}
-          name="description"
-          label="Description"
-          multiline
-          numberOfLines={3}
-          textAlignVertical="top"
-        />
-      </FormikProvider>
+          {formik.values.transactionType === TransactionType.TRANSFER && (
+            <Field
+              component={FormikSelectInput}
+              name="toAccountId"
+              label="To Account"
+              options={accountOptions}
+              showSearch={false}
+              style={{backgroundColor: theme.colors.background}}
+            />
+          )}
+          <Field
+            component={FormikTextInput}
+            name="description"
+            label="Description"
+            multiline
+            numberOfLines={3}
+            textAlignVertical="top"
+          />
+        </FormikProvider>
+      </View>
+      <Row>
+        <Col>
+          <Button onPress={() => {}} mode={'outlined'}>
+            {t('common.cancel')}
+          </Button>
+        </Col>
+        <Col>
+          <Button onPress={() => {}} mode={'contained'}>
+            {t('common.confirm')}
+          </Button>
+        </Col>
+      </Row>
     </BaseLayout>
   );
 }
