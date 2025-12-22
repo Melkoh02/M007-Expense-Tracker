@@ -15,6 +15,7 @@ import FormikTextInput from '../components/formik/FormikTextInput.tsx';
 import FormikTimeInput from '../components/formik/FormikTimeInput.tsx';
 import BaseLayout from '../components/templates/BaseLayout.tsx';
 import {TransactionType} from '../lib/constants/transaction.ts';
+import {composeDateTime} from '../lib/helpers/composeDateTime.ts';
 import {Col, Row} from '../lib/helpers/formik.tsx';
 import {getTransactionTypeLabel} from '../lib/helpers/transaction.ts';
 import {useTheme} from '../lib/hooks/useAppTheme.ts';
@@ -62,10 +63,11 @@ export default function TransactionScreen({navigation, route}: Props) {
     () => ({
       transactionType,
       amount: 0,
-      dateTime: Date.now(),
-      description: '',
+      date: undefined,
+      time: undefined,
       fromAccountId: undefined,
       toAccountId: undefined,
+      description: '',
       tags: [],
     }),
     [transactionType],
@@ -92,7 +94,21 @@ export default function TransactionScreen({navigation, route}: Props) {
   );
 
   const onSubmit = useCallback((values: typeof initialValues) => {
-    console.log('=====> onSubmit =====>', values);
+    const dateTime = composeDateTime(values.date, values.time);
+
+    const payload = {
+      transactionType: values.transactionType,
+      amount: values.amount,
+      fromAccountId: values.fromAccountId,
+      toAccountId: values.toAccountId,
+      description: values.description,
+      tags: values.tags,
+      dateTime: dateTime ? dateTime.toISOString() : undefined,
+      timezoneOffsetMinutes: dateTime
+        ? -dateTime.getTimezoneOffset()
+        : undefined,
+    };
+    console.log('=====> payload =====>', JSON.stringify(payload, null, 2));
   }, []);
 
   const formik = useFormik({
@@ -184,12 +200,12 @@ export default function TransactionScreen({navigation, route}: Props) {
       </View>
       <Row>
         <Col>
-          <Button onPress={() => {}} mode={'outlined'}>
+          <Button onPress={navigation.goBack} mode={'outlined'}>
             {t('common.cancel')}
           </Button>
         </Col>
         <Col>
-          <Button onPress={() => {}} mode={'contained'}>
+          <Button onPress={() => formik.handleSubmit()} mode={'contained'}>
             {t('common.confirm')}
           </Button>
         </Col>
