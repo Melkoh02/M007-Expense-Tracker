@@ -111,7 +111,11 @@ export default function TransactionScreen({navigation, route}: Props) {
   useLayoutEffect(() => {
     Platform.OS === 'android'
       ? navigation.setOptions({title, headerShown: true})
-      : navigation.getParent()?.setOptions({title, headerShown: true});
+      : navigation.getParent()?.setOptions({
+          title,
+          headerShown: true,
+          headerBackTitle: t('tabNavigator.home'),
+        });
   }, [navigation, title]);
 
   return (
