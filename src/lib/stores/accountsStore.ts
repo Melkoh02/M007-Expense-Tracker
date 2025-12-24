@@ -1,6 +1,6 @@
 import {makeAutoObservable} from 'mobx';
 
-import {Account} from '../types/accounts.ts';
+import {Account} from '../types/transaction.ts';
 
 export default class AccountsStore {
   accounts: Account[] = [];

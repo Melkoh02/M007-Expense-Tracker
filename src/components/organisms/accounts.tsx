@@ -5,7 +5,7 @@ import {StyleSheet, View} from 'react-native';
 import {Surface, Text, TouchableRipple} from 'react-native-paper';
 
 import {getCurrencySymbol} from '../../lib/helpers/getCurrecySymbol.ts';
-import {Account} from '../../lib/types/accounts.ts';
+import {Account} from '../../lib/types/transaction.ts';
 
 type Props = {
   accountsData: Account[];

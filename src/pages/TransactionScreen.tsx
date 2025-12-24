@@ -13,7 +13,9 @@ import FormikDateInput from '../components/formik/FormikDateInput.tsx';
 import FormikSelectInput from '../components/formik/FormikSelectInput.tsx';
 import FormikTextInput from '../components/formik/FormikTextInput.tsx';
 import FormikTimeInput from '../components/formik/FormikTimeInput.tsx';
+import TagsGrid from '../components/organisms/tags.tsx';
 import BaseLayout from '../components/templates/BaseLayout.tsx';
+import {dummyTags} from '../lib/constants/dummyData.ts';
 import {TransactionType} from '../lib/constants/transaction.ts';
 import {composeDateTime} from '../lib/helpers/composeDateTime.ts';
 import {Col, Row} from '../lib/helpers/formik.tsx';
@@ -202,6 +204,7 @@ export default function TransactionScreen({navigation, route}: Props) {
             textAlignVertical="top"
           />
         </FormikProvider>
+        <TagsGrid tagsData={dummyTags} />
       </View>
       <Row>
         <Col>

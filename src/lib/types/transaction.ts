@@ -5,4 +5,10 @@ export type Account = {
   currency: string;
   color?: string;
   onPress?: () => void;
+  tagIds?: string[];
+};
+
+export type Tag = {
+  id: string;
+  name: string;
 };
