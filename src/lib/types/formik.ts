@@ -1,3 +1,5 @@
+import {ViewStyle} from 'react-native';
+
 import type {
   FieldInputProps,
   FieldMetaProps,
@@ -7,6 +9,7 @@ import type {
 import type {TextInputProps} from 'react-native-paper';
 
 import {SelectInputOptionsProp} from './selectInput.ts';
+import {Tag} from './transaction.ts';
 
 export type BaseFormikInputProps = {
   field: FieldInputProps<string>;
@@ -61,3 +64,10 @@ export type FormikTimeInputProps = FieldProps &
     label: string;
     use24HourClock?: boolean;
   };
+
+export type FormikSelectTagsProps = FieldProps & {
+  tagsData: Tag[];
+  readonly?: boolean;
+  showUnselected?: boolean;
+  style: ViewStyle;
+};
