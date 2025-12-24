@@ -206,6 +206,7 @@ export default function TransactionScreen({navigation, route}: Props) {
           <Field
             component={FormikSelectTags}
             name="tags"
+            label="Tags"
             tagsData={dummyTags}
           />
         </FormikProvider>

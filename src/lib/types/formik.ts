@@ -69,5 +69,6 @@ export type FormikSelectTagsProps = FieldProps & {
   tagsData: Tag[];
   readonly?: boolean;
   showUnselected?: boolean;
-  style: ViewStyle;
+  label?: string;
+  style?: ViewStyle;
 };

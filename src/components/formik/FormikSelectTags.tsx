@@ -14,6 +14,7 @@ export default function FormikSelectTags({
   form,
   tagsData,
   style,
+  label,
   readonly = false,
   showUnselected = true,
 }: FormikSelectTagsProps) {
@@ -32,6 +33,16 @@ export default function FormikSelectTags({
 
   return (
     <View>
+      {label && (
+        <Text
+          variant="bodyLarge"
+          style={{
+            marginTop: 16,
+            color: theme.colors.onSurfaceVariant,
+          }}>
+          {label}
+        </Text>
+      )}
       <TagsGrid
         tagsData={tagsData}
         selectedTagIds={selectedIds}
@@ -47,7 +58,6 @@ export default function FormikSelectTags({
               }
         }
       />
-
       {showError && (
         <Text
           variant="bodySmall"
