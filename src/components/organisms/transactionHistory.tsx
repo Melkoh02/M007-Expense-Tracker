@@ -51,24 +51,31 @@ const TransactionHistory: React.FC<Props> = ({data}) => {
   const theme = useTheme();
   const {accountsStore} = useStore();
   const {t} = useTranslation();
+  const hasTransactions = data && data.length > 0;
 
   return (
     <>
       <Text variant="titleMedium" style={styles.title}>
         {t('history.title')}
       </Text>
-      <View style={styles.container}>
-        {data.map(item => {
-          const account = accountsStore.getAccountById(item.fromAccountId);
-          if (!account) return null;
+      {hasTransactions ? (
+        <View style={styles.container}>
+          {data.map(item => {
+            const account = accountsStore.getAccountById(item.fromAccountId);
+            if (!account) return null;
 
-          return (
-            <React.Fragment key={item.id}>
-              {renderTransactionItem(item, theme, account)}
-            </React.Fragment>
-          );
-        })}
-      </View>
+            return (
+              <React.Fragment key={item.id}>
+                {renderTransactionItem(item, theme, account)}
+              </React.Fragment>
+            );
+          })}
+        </View>
+      ) : (
+        <View style={styles.empty}>
+          <Text style={styles.emptyText}>{t('history.noHistory')}</Text>
+        </View>
+      )}
     </>
   );
 };
@@ -94,14 +101,25 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 12,
     flex: 1,
-    minWidth: 0,
+    paddingLeft: 12,
   },
   description: {
     flex: 1,
     minWidth: 0,
+    fontStyle: 'italic',
   },
   amount: {
+    paddingRight: 12,
     flexShrink: 0,
+  },
+  empty: {
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  emptyText: {
+    fontStyle: 'italic',
   },
 });
 

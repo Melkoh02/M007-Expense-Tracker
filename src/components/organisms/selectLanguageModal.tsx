@@ -1,12 +1,15 @@
 import React, {useEffect, useMemo, useState} from 'react';
+
 import {StyleSheet} from 'react-native';
+
 import {useTranslation} from 'react-i18next';
+
+import {SUPPORTED_LANGUAGES} from '../../lib/constants/languages';
 import {useStore} from '../../lib/hooks/useStore';
+import {SelectInputOptionsProp} from '../../lib/types/selectInput.ts';
+import {LanguageModalProps} from '../../lib/types/selectLanguageModal';
 import BaseModal from '../molecules/modal';
 import SelectInput from '../molecules/selectInput';
-import {LanguageModalProps} from '../../lib/types/selectLanguageModal';
-import {SUPPORTED_LANGUAGES} from '../../lib/constants/languages';
-import {SelectInputOptionsProp} from '../../lib/types/selectInput.ts';
 
 export default function SelectLanguageModal({
   isVisible,
@@ -43,6 +46,7 @@ export default function SelectLanguageModal({
           onChange={setSelectedLang}
           placeholder={t('modals.selectLanguageModal.placeholder')}
           options={languageOptions}
+          showSearch={false}
           style={styles.select}
         />
       }

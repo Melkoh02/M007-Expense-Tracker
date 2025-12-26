@@ -124,7 +124,8 @@
     "title": "Summary"
   },
   "accounts": {
-    "title": "My Accounts"
+    "title": "Mis Cuentas",
+    "noAccounts": "You don't have any accounts yet. Create one by clicking on the + button on the top right corner!"
   },
   "transaction": {
     "transactionScreenTitle": "New {{TRANSACTION_TYPE}}",
@@ -140,7 +141,8 @@
     }
   },
   "history": {
-    "title": "History"
+    "title": "History",
+    "noHistory": "You don't have any transactions yet."
   },
   "backendRes": {
     "successLogin": "Logged in! :D",
