@@ -120,11 +120,30 @@
     "loginError": "Could not log in, try again later",
     "loginSuccess": "Logged in! :D"
   },
+  "summary": {
+    "title": "Summary"
+  },
+  "accounts": {
+    "title": "My Accounts"
+  },
+  "transaction": {
+    "transactionScreenTitle": "New {{TRANSACTION_TYPE}}",
+    "fields": {
+      "transactionType": "Transaction Type",
+      "date": "Date",
+      "time": "Time",
+      "amount": "Amount",
+      "fromAccount": "From Account",
+      "toAccount": "To Account",
+      "description": "Description",
+      "tags": "Tags"
+    }
+  },
+  "history": {
+    "title": "History"
+  },
   "backendRes": {
     "successLogin": "Logged in! :D",
     "badReqLogin": "Incorrect Email or Password, please try again"
-  },
-  "transaction": {
-    "transactionScreenTitle": "New {{TRANSACTION_TYPE}}"
   }
 }

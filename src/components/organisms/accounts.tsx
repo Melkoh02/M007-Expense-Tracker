@@ -2,6 +2,7 @@ import React from 'react';
 
 import {StyleSheet, View} from 'react-native';
 
+import {useTranslation} from 'react-i18next';
 import {Surface, Text, TouchableRipple} from 'react-native-paper';
 
 import {getCurrencySymbol} from '../../lib/helpers/getCurrecySymbol.ts';
@@ -12,34 +13,44 @@ type Props = {
 };
 
 const AccountsGrid: React.FC<Props> = ({accountsData}) => {
+  const {t} = useTranslation();
+
   return (
-    <View style={styles.container}>
-      {accountsData.map(acc => (
-        <TouchableRipple
-          key={acc.name}
-          onPress={acc.onPress}
-          borderless
-          style={styles.ripple}>
-          <Surface elevation={2} style={styles.pill}>
-            <View style={[styles.leftBlock, {backgroundColor: acc.color}]}>
-              <Text style={styles.leftText}>{acc.name}</Text>
-            </View>
-            <View style={styles.rightBlock}>
-              <Text style={styles.rightText}>
-                {getCurrencySymbol(acc.currency)}
-                {acc.currentTotal}
-              </Text>
-            </View>
-          </Surface>
-        </TouchableRipple>
-      ))}
-    </View>
+    <>
+      <Text variant="titleMedium" style={styles.title}>
+        {t('accounts.title')}
+      </Text>
+      <View style={styles.container}>
+        {accountsData.map(acc => (
+          <TouchableRipple
+            key={acc.name}
+            onPress={acc.onPress}
+            borderless
+            style={styles.ripple}>
+            <Surface elevation={2} style={styles.pill}>
+              <View style={[styles.leftBlock, {backgroundColor: acc.color}]}>
+                <Text style={styles.leftText}>{acc.name}</Text>
+              </View>
+              <View style={styles.rightBlock}>
+                <Text style={styles.rightText}>
+                  {getCurrencySymbol(acc.currency)}
+                  {acc.currentTotal}
+                </Text>
+              </View>
+            </Surface>
+          </TouchableRipple>
+        ))}
+      </View>
+    </>
   );
 };
 
 const styles = StyleSheet.create({
+  title: {
+    paddingTop: 12,
+  },
   container: {
-    paddingTop: 18,
+    paddingTop: 12,
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: 10,

@@ -2,6 +2,7 @@ import React from 'react';
 
 import {StyleSheet, View} from 'react-native';
 
+import {useTranslation} from 'react-i18next';
 import {Surface, Text} from 'react-native-paper';
 
 import {getColorForType} from '../../lib/helpers/getColorForType.ts';
@@ -49,24 +50,33 @@ const renderTransactionItem = (
 const TransactionHistory: React.FC<Props> = ({data}) => {
   const theme = useTheme();
   const {accountsStore} = useStore();
+  const {t} = useTranslation();
 
   return (
-    <View style={styles.container}>
-      {data.map(item => {
-        const account = accountsStore.getAccountById(item.fromAccountId);
-        if (!account) return null;
+    <>
+      <Text variant="titleMedium" style={styles.title}>
+        {t('history.title')}
+      </Text>
+      <View style={styles.container}>
+        {data.map(item => {
+          const account = accountsStore.getAccountById(item.fromAccountId);
+          if (!account) return null;
 
-        return (
-          <React.Fragment key={item.id}>
-            {renderTransactionItem(item, theme, account)}
-          </React.Fragment>
-        );
-      })}
-    </View>
+          return (
+            <React.Fragment key={item.id}>
+              {renderTransactionItem(item, theme, account)}
+            </React.Fragment>
+          );
+        })}
+      </View>
+    </>
   );
 };
 
 const styles = StyleSheet.create({
+  title: {
+    paddingTop: 12,
+  },
   container: {
     paddingVertical: 12,
     gap: 12,

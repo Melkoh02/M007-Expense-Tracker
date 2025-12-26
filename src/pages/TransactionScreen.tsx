@@ -155,20 +155,24 @@ export default function TransactionScreen({navigation, route}: Props) {
           <Field
             component={FormikSelectInput}
             name="transactionType"
-            label="Transaction Type"
+            label={t('transaction.fields.transactionType')}
             options={transactionTypeOptions}
             showSearch={false}
             style={{backgroundColor: theme.colors.background}}
           />
           <Row gap={0}>
             <Col>
-              <Field component={FormikDateInput} name="date" label="Date" />
+              <Field
+                component={FormikDateInput}
+                name="date"
+                label={t('transaction.fields.date')}
+              />
             </Col>
             <Col>
               <Field
                 component={FormikTimeInput}
                 name="time"
-                label="Time"
+                label={t('transaction.fields.time')}
                 use24HourClock
               />
             </Col>
@@ -176,13 +180,13 @@ export default function TransactionScreen({navigation, route}: Props) {
           <Field
             component={FormikAmountInput}
             name="amount"
-            label="Amount"
+            label={t('transaction.fields.amount')}
             currencySymbol="$"
           />
           <Field
             component={FormikSelectInput}
             name="fromAccountId"
-            label="From Account"
+            label={t('transaction.fields.fromAccount')}
             options={accountOptions}
             showSearch={false}
             style={{backgroundColor: theme.colors.background}}
@@ -191,7 +195,7 @@ export default function TransactionScreen({navigation, route}: Props) {
             <Field
               component={FormikSelectInput}
               name="toAccountId"
-              label="To Account"
+              label={t('transaction.fields.toAccount')}
               options={accountOptions}
               showSearch={false}
               style={{backgroundColor: theme.colors.background}}
@@ -200,7 +204,7 @@ export default function TransactionScreen({navigation, route}: Props) {
           <Field
             component={FormikTextInput}
             name="description"
-            label="Description"
+            label={t('transaction.fields.description')}
             multiline
             numberOfLines={3}
             textAlignVertical="top"
@@ -208,7 +212,7 @@ export default function TransactionScreen({navigation, route}: Props) {
           <Field
             component={FormikSelectTags}
             name="tagIds"
-            label="Tags"
+            label={t('transaction.fields.tags')}
             tagsData={dummyTags}
           />
         </FormikProvider>

@@ -1,7 +1,10 @@
-import React, {useMemo, useCallback} from 'react';
-import {View, StyleSheet} from 'react-native';
-import {Surface, Text, IconButton} from 'react-native-paper';
+import React, {useCallback, useMemo} from 'react';
+
+import {StyleSheet, View} from 'react-native';
+
 import {PieChart} from 'react-native-gifted-charts';
+import {IconButton, Surface, Text} from 'react-native-paper';
+
 import {useTheme} from '../../lib/hooks/useAppTheme.ts';
 
 type SpentItem = {

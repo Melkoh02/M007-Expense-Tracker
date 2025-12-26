@@ -120,11 +120,30 @@
     "loginError": "No se pudo iniciar sesión, inténtalo de nuevo más tarde",
     "loginSuccess": "¡Sesión iniciada! :D"
   },
+  "summary": {
+    "title": "Resumen"
+  },
+  "accounts": {
+    "title": "Mis Cuentas"
+  },
+  "transaction": {
+    "transactionScreenTitle": "Nuevo {{TRANSACTION_TYPE}}",
+    "fields": {
+      "transactionType": "Tipo de transacción",
+      "date": "Fecha",
+      "time": "Hora",
+      "amount": "Monto",
+      "fromAccount": "Cuenta origen",
+      "toAccount": "Cuenta destino",
+      "description": "Descripción",
+      "tags": "Etiquetas"
+    }
+  },
+  "history": {
+    "title": "Historial"
+  },
   "backendRes": {
     "successLogin": "Sesión iniciada! :D",
     "badReqLogin": "Email o Contraseña incorrecta, vuelva a intentar"
-  },
-  "transaction": {
-    "transactionScreenTitle": "Nuevo {{TRANSACTION_TYPE}}"
   }
 }
