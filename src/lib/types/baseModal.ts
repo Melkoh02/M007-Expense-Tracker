@@ -5,6 +5,7 @@ export type ModalAction = {
   onPress: () => void;
   mode?: 'text' | 'outlined' | 'contained' | 'elevated' | 'contained-tonal';
   style?: object;
+  disabled?: boolean;
 };
 
 export type BaseModalProps = {

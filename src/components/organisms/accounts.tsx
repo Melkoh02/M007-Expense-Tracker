@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react';
+import React, {useMemo, useState} from 'react';
 
 import {StyleSheet, View} from 'react-native';
 
@@ -6,7 +6,9 @@ import {useTranslation} from 'react-i18next';
 import {IconButton, Surface, Text, TouchableRipple} from 'react-native-paper';
 
 import {getCurrencySymbol} from '../../lib/helpers/getCurrecySymbol.ts';
+import {useTheme} from '../../lib/hooks/useAppTheme.ts';
 import {Account} from '../../lib/types/transaction.ts';
+import AccountsModal from './accountsModal.tsx';
 
 type Props = {
   accountsData: Account[];
@@ -14,6 +16,8 @@ type Props = {
 
 const AccountsGrid: React.FC<Props> = ({accountsData}) => {
   const {t} = useTranslation();
+  const [modalVisible, setModalVisible] = useState(false);
+  const theme = useTheme();
   const hasAccounts = useMemo(
     () => accountsData && accountsData.length > 0,
     [accountsData],
@@ -29,7 +33,7 @@ const AccountsGrid: React.FC<Props> = ({accountsData}) => {
           size={20}
           icon={hasAccounts ? 'pencil' : 'plus'}
           style={{marginRight: 0}}
-          onPress={() => {}}
+          onPress={() => setModalVisible(true)}
         />
       </View>
       {hasAccounts ? (
@@ -42,7 +46,9 @@ const AccountsGrid: React.FC<Props> = ({accountsData}) => {
               style={styles.ripple}>
               <Surface elevation={2} style={styles.pill}>
                 <View style={[styles.leftBlock, {backgroundColor: acc.color}]}>
-                  <Text style={styles.leftText}>{acc.name}</Text>
+                  <Text style={{...styles.leftText, color: theme.colors.white}}>
+                    {acc.name}
+                  </Text>
                 </View>
                 <View style={styles.rightBlock}>
                   <Text style={styles.rightText}>
@@ -59,6 +65,10 @@ const AccountsGrid: React.FC<Props> = ({accountsData}) => {
           <Text style={styles.emptyText}>{t('accounts.noAccounts')}</Text>
         </View>
       )}
+      <AccountsModal
+        isVisible={modalVisible}
+        onDismiss={() => setModalVisible(false)}
+      />
     </>
   );
 };
@@ -98,7 +108,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   leftText: {
-    color: '#fff',
     fontWeight: '600',
     fontSize: 13,
   },

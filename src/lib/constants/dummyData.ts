@@ -41,9 +41,6 @@ export const accountsData: Account[] = [
     currentTotal: '123.45',
     currency: 'USD',
     color: '#835a98',
-    onPress: () => {
-      console.log('Pressed!');
-    },
   },
   {
     id: 'A002',
@@ -51,9 +48,6 @@ export const accountsData: Account[] = [
     currentTotal: '123',
     currency: 'USD',
     color: '#56957d',
-    onPress: () => {
-      console.log('Pressed!');
-    },
   },
   {
     id: 'A003',
@@ -61,9 +55,6 @@ export const accountsData: Account[] = [
     currentTotal: '123.45',
     currency: 'USD',
     color: '#4b6c95',
-    onPress: () => {
-      console.log('Pressed!');
-    },
   },
   {
     id: 'A004',
@@ -71,9 +62,6 @@ export const accountsData: Account[] = [
     currentTotal: '1,234,567',
     currency: 'PYG',
     color: '#96697f',
-    onPress: () => {
-      console.log('Pressed!');
-    },
   },
   {
     id: 'A005',
@@ -81,9 +69,6 @@ export const accountsData: Account[] = [
     currentTotal: '123.45',
     currency: 'USD',
     color: '#D884FF',
-    onPress: () => {
-      console.log('Pressed!');
-    },
   },
   {
     id: 'A006',
@@ -91,9 +76,6 @@ export const accountsData: Account[] = [
     currentTotal: '123.45',
     currency: 'USD',
     color: '#4b6c95',
-    onPress: () => {
-      console.log('Pressed!');
-    },
   },
 ];
 

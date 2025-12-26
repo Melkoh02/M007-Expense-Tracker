@@ -6,7 +6,6 @@ export type Account = {
   currentTotal: string;
   currency: string;
   color?: string;
-  onPress?: () => void;
 };
 
 export type Tag = {

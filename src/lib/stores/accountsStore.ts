@@ -2,6 +2,10 @@ import {makeAutoObservable} from 'mobx';
 
 import {Account} from '../types/transaction.ts';
 
+export const generateId = (): string => {
+  return `A${Math.random().toString(16).slice(2, 10).toUpperCase()}`;
+};
+
 export default class AccountsStore {
   accounts: Account[] = [];
 
@@ -11,6 +15,16 @@ export default class AccountsStore {
 
   setAccounts(data: Account[]) {
     this.accounts = data;
+  }
+
+  addAccount(account: Omit<Account, 'id'>) {
+    this.accounts = [...this.accounts, {...account, id: generateId()}];
+  }
+
+  deleteAccounts(ids: string[]) {
+    if (!ids.length) return;
+    const toDelete = new Set(ids);
+    this.accounts = this.accounts.filter(acc => !toDelete.has(acc.id));
   }
 
   clear() {

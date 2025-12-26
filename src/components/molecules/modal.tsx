@@ -1,7 +1,9 @@
 import {StyleSheet, View} from 'react-native';
+
 import {Button, Modal, Portal, Surface, Text} from 'react-native-paper';
-import {BaseModalProps} from '../../lib/types/baseModal';
+
 import {useTheme} from '../../lib/hooks/useAppTheme.ts';
+import {BaseModalProps} from '../../lib/types/baseModal';
 
 export default function BaseModal({
   isVisible = false,
@@ -34,11 +36,21 @@ export default function BaseModal({
           </View>
           <View style={styles.actions}>
             {actions &&
-              actions.map(({text, onPress, mode = 'text', style}, index) => (
-                <Button key={index} mode={mode} onPress={onPress} style={style}>
-                  {text}
-                </Button>
-              ))}
+              actions.map(
+                (
+                  {text, onPress, mode = 'text', style, disabled = false},
+                  index,
+                ) => (
+                  <Button
+                    disabled={disabled}
+                    key={index}
+                    mode={mode}
+                    onPress={onPress}
+                    style={style}>
+                    {text}
+                  </Button>
+                ),
+              )}
           </View>
         </Surface>
       </Modal>

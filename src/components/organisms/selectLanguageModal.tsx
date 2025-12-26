@@ -7,18 +7,19 @@ import {useTranslation} from 'react-i18next';
 import {SUPPORTED_LANGUAGES} from '../../lib/constants/languages';
 import {useStore} from '../../lib/hooks/useStore';
 import {SelectInputOptionsProp} from '../../lib/types/selectInput.ts';
-import {LanguageModalProps} from '../../lib/types/selectLanguageModal';
 import BaseModal from '../molecules/modal';
 import SelectInput from '../molecules/selectInput';
 
-export default function SelectLanguageModal({
-  isVisible,
-  onDismiss,
-}: LanguageModalProps) {
+type Props = {
+  isVisible: boolean;
+  onDismiss: () => void;
+};
+
+export default function SelectLanguageModal({isVisible, onDismiss}: Props) {
   const {t} = useTranslation();
   const {languageStore} = useStore();
 
-  // Local state to stage the choice before confirm:
+  // Local state to stage the choice before confirmation:
   const [selectedLang, setSelectedLang] = useState(languageStore.language);
 
   // Map the constant list into `Option[]` for SelectInput:

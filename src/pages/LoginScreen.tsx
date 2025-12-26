@@ -1,15 +1,18 @@
-import React from 'react';
+import React, {useMemo} from 'react';
+
 import {Keyboard, StyleSheet, View} from 'react-native';
-import {useTranslation} from 'react-i18next';
-import useApi from '../lib/hooks/useApi.ts';
+
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {Field, FormikProvider, useFormik} from 'formik';
+import {useTranslation} from 'react-i18next';
+import {Button, Text} from 'react-native-paper';
 import * as Yup from 'yup';
+
 import FormikEmailInput from '../components/formik/FormikEmailInput.tsx';
 import FormikPasswordInput from '../components/formik/FormikPasswordInput.tsx';
-import {Button, Text} from 'react-native-paper';
-import {useStore} from '../lib/hooks/useStore.ts';
 import BaseLayout from '../components/templates/BaseLayout.tsx';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import useApi from '../lib/hooks/useApi.ts';
+import {useStore} from '../lib/hooks/useStore.ts';
 import {AuthStackParamList} from '../lib/types/navigation.ts';
 
 type Props = NativeStackScreenProps<AuthStackParamList, 'Login'>;
@@ -32,10 +35,13 @@ export default function LoginScreen({navigation}: Props) {
     });
   };
 
-  const initialValues = {
-    email: '',
-    password: '',
-  };
+  const initialValues = useMemo(
+    () => ({
+      email: '',
+      password: '',
+    }),
+    [],
+  );
 
   const validationSchema = Yup.object({
     email: Yup.string()

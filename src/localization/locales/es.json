@@ -113,6 +113,10 @@
         "en": "Inglés",
         "es": "Español"
       }
+    },
+    "accounts": {
+      "title": "Mis Cuentas",
+      "newAccountPlaceholder": "Nueva cuenta"
     }
   },
   "snackBarMessages": {
