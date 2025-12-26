@@ -5,7 +5,7 @@ import {
   NavigatorScreenParams,
 } from '@react-navigation/native';
 
-import {TransactionType} from '../constants/transaction.ts';
+import {TransactionTypeEnum} from '../constants/transaction.ts';
 
 export type AuthStackParamList = {
   Login: undefined;
@@ -23,7 +23,7 @@ export type SettingsStackParamList = {
 
 export type TransactionStackParamList = {
   TransactionScreen: {
-    transactionType: TransactionType;
+    transactionType: TransactionTypeEnum;
   };
 };
 

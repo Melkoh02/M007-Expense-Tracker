@@ -7,10 +7,12 @@ import MainFab from '../components/molecules/fab.tsx';
 import MainSearchBar from '../components/molecules/searchBar.tsx';
 import AccountsGrid from '../components/organisms/accounts.tsx';
 import SpentSummaryGraph from '../components/organisms/spentSummaryGraph.tsx';
+import TransactionHistory from '../components/organisms/transactionHistory.tsx';
 import BaseLayout from '../components/templates/BaseLayout.tsx';
 import {
   accountsData,
   summarySpendingAmount,
+  transactionHistory,
 } from '../lib/constants/dummyData.ts';
 import {useStore} from '../lib/hooks/useStore.ts';
 import {HomeStackParamList} from '../lib/types/navigation.ts';
@@ -19,10 +21,11 @@ type Props = NativeStackScreenProps<HomeStackParamList, 'Home'>;
 
 function HomeScreen({}: Props) {
   const [searchQuery, setSearchQuery] = useState('');
-  const {accountsStore} = useStore();
+  const {accountsStore, transactionHistoryStore} = useStore();
 
   useEffect(() => {
     accountsStore.setAccounts(accountsData);
+    transactionHistoryStore.setHistory(transactionHistory);
   }, []);
 
   return (
@@ -34,6 +37,7 @@ function HomeScreen({}: Props) {
         />
         <AccountsGrid accountsData={accountsStore.accounts} />
         <SpentSummaryGraph spentItems={summarySpendingAmount} />
+        <TransactionHistory data={transactionHistoryStore.transactionHistory} />
       </BaseLayout>
       <MainFab />
     </>

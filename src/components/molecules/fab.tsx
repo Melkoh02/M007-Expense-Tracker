@@ -3,7 +3,7 @@ import React from 'react';
 import {useTranslation} from 'react-i18next';
 import {FAB} from 'react-native-paper';
 
-import {TransactionType} from '../../lib/constants/transaction.ts';
+import {TransactionTypeEnum} from '../../lib/constants/transaction.ts';
 import {useNavigation} from '../../lib/hooks/useNavigation.ts';
 
 const MainFab = () => {
@@ -23,7 +23,7 @@ const MainFab = () => {
           onPress: () => {
             navigation.navigate('TransactionFlow', {
               screen: 'TransactionScreen',
-              params: {transactionType: TransactionType.EXPENSE},
+              params: {transactionType: TransactionTypeEnum.EXPENSE},
             });
           },
         },
@@ -33,7 +33,7 @@ const MainFab = () => {
           onPress: () => {
             navigation.navigate('TransactionFlow', {
               screen: 'TransactionScreen',
-              params: {transactionType: TransactionType.TRANSFER},
+              params: {transactionType: TransactionTypeEnum.TRANSFER},
             });
           },
         },
@@ -43,7 +43,7 @@ const MainFab = () => {
           onPress: () => {
             navigation.navigate('TransactionFlow', {
               screen: 'TransactionScreen',
-              params: {transactionType: TransactionType.INCOME},
+              params: {transactionType: TransactionTypeEnum.INCOME},
             });
           },
         },

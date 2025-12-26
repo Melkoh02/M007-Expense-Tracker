@@ -1,4 +1,5 @@
-import {Account, Tag} from '../types/transaction.ts';
+import {Account, Tag, Transaction} from '../types/transaction.ts';
+import {TransactionTypeEnum} from './transaction.ts';
 
 export const dummyTags: Tag[] = [
   {id: 'tag1', name: 'Food'},
@@ -43,7 +44,6 @@ export const accountsData: Account[] = [
     onPress: () => {
       console.log('Pressed!');
     },
-    tagIds: ['tag1', 'tag2', 'tag3'],
   },
   {
     id: 'A002',
@@ -54,7 +54,6 @@ export const accountsData: Account[] = [
     onPress: () => {
       console.log('Pressed!');
     },
-    tagIds: ['tag1', 'tag2', 'tag3'],
   },
   {
     id: 'A003',
@@ -65,7 +64,6 @@ export const accountsData: Account[] = [
     onPress: () => {
       console.log('Pressed!');
     },
-    tagIds: ['tag1', 'tag2', 'tag3'],
   },
   {
     id: 'A004',
@@ -76,7 +74,6 @@ export const accountsData: Account[] = [
     onPress: () => {
       console.log('Pressed!');
     },
-    tagIds: ['tag1', 'tag2', 'tag3'],
   },
   {
     id: 'A005',
@@ -87,7 +84,6 @@ export const accountsData: Account[] = [
     onPress: () => {
       console.log('Pressed!');
     },
-    tagIds: ['tag1', 'tag2', 'tag3'],
   },
   {
     id: 'A006',
@@ -98,7 +94,6 @@ export const accountsData: Account[] = [
     onPress: () => {
       console.log('Pressed!');
     },
-    tagIds: ['tag1', 'tag2', 'tag3'],
   },
 ];
 
@@ -109,4 +104,89 @@ export const summarySpendingAmount = [
   {name: 'PYG', spent: '634', color: '#96697f'},
   {name: 'Cash 2', spent: '123.45', color: '#D884FF'},
   {name: 'Credit Card', spent: '452', color: '#4b6c95'},
+];
+
+export const transactionHistory: Transaction[] = [
+  {
+    id: 'T001',
+    transactionType: TransactionTypeEnum.EXPENSE,
+    amount: 12.5,
+    fromAccountId: 'A001', // Cash
+    description: 'Morning coffee before going to the office to work',
+    tagIds: ['tag5'], // Coffee
+    dateTime: '2025-01-10T08:15:00.000Z',
+    timezoneOffsetMinutes: -180,
+  },
+  {
+    id: 'T002',
+    transactionType: TransactionTypeEnum.EXPENSE,
+    amount: 45.9,
+    fromAccountId: 'A003', // Debit Card
+    description: 'Groceries at supermarket',
+    tagIds: ['tag3'], // Groceries
+    dateTime: '2025-01-09T18:42:00.000Z',
+    timezoneOffsetMinutes: -180,
+  },
+  {
+    id: 'T003',
+    transactionType: TransactionTypeEnum.EXPENSE,
+    amount: 28,
+    fromAccountId: 'A006', // Credit Card
+    description: 'Dinner with friends',
+    tagIds: ['tag4', 'tag15'], // Restaurants + Entertainment
+    dateTime: '2025-01-08T21:10:00.000Z',
+    timezoneOffsetMinutes: -180,
+  },
+  {
+    id: 'T004',
+    transactionType: TransactionTypeEnum.INCOME,
+    amount: 1200,
+    fromAccountId: 'A002', // Savings ABC
+    description: 'Monthly salary',
+    tagIds: [],
+    dateTime: '2025-01-05T09:00:00.000Z',
+    timezoneOffsetMinutes: -180,
+  },
+  {
+    id: 'T005',
+    transactionType: TransactionTypeEnum.TRANSFER,
+    amount: 300,
+    fromAccountId: 'A002', // Savings ABC
+    toAccountId: 'A001', // Cash
+    description: 'ATM withdrawal',
+    tagIds: [],
+    dateTime: '2025-01-04T16:30:00.000Z',
+    timezoneOffsetMinutes: -180,
+  },
+  {
+    id: 'T006',
+    transactionType: TransactionTypeEnum.EXPENSE,
+    amount: 60,
+    fromAccountId: 'A003', // Debit Card
+    description: 'Internet bill',
+    tagIds: ['tag10', 'tag13'], // Utilities + Internet
+    dateTime: '2025-01-03T11:20:00.000Z',
+    timezoneOffsetMinutes: -180,
+  },
+  {
+    id: 'T007',
+    transactionType: TransactionTypeEnum.EXPENSE,
+    amount: 40,
+    fromAccountId: 'A001', // Cash
+    description: 'Fuel',
+    tagIds: ['tag7'], // Fuel
+    dateTime: '2025-01-02T14:05:00.000Z',
+    timezoneOffsetMinutes: -180,
+  },
+  {
+    id: 'T008',
+    transactionType: TransactionTypeEnum.TRANSFER,
+    amount: 500,
+    fromAccountId: 'A003', // Debit Card
+    toAccountId: 'A002', // Savings ABC
+    description: 'Move money to savings',
+    tagIds: [],
+    dateTime: '2025-01-01T10:00:00.000Z',
+    timezoneOffsetMinutes: -180,
+  },
 ];

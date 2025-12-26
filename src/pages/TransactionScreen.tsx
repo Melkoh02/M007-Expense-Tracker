@@ -16,13 +16,14 @@ import FormikTextInput from '../components/formik/FormikTextInput.tsx';
 import FormikTimeInput from '../components/formik/FormikTimeInput.tsx';
 import BaseLayout from '../components/templates/BaseLayout.tsx';
 import {dummyTags} from '../lib/constants/dummyData.ts';
-import {TransactionType} from '../lib/constants/transaction.ts';
+import {TransactionTypeEnum} from '../lib/constants/transaction.ts';
 import {composeDateTime} from '../lib/helpers/composeDateTime.ts';
 import {Col, Row} from '../lib/helpers/formik.tsx';
 import {getTransactionTypeLabel} from '../lib/helpers/transaction.ts';
 import {useTheme} from '../lib/hooks/useAppTheme.ts';
 import {useStore} from '../lib/hooks/useStore.ts';
 import {TransactionStackParamList} from '../lib/types/navigation.ts';
+import {Transaction} from '../lib/types/transaction.ts';
 
 type Props = NativeStackScreenProps<
   TransactionStackParamList,
@@ -56,9 +57,9 @@ export default function TransactionScreen({navigation, route}: Props) {
 
   const transactionTypeOptions = useMemo(
     () => [
-      {id: TransactionType.EXPENSE, value: t('common.expense')},
-      {id: TransactionType.TRANSFER, value: t('common.transfer')},
-      {id: TransactionType.INCOME, value: t('common.income')},
+      {id: TransactionTypeEnum.EXPENSE, value: t('common.expense')},
+      {id: TransactionTypeEnum.TRANSFER, value: t('common.transfer')},
+      {id: TransactionTypeEnum.INCOME, value: t('common.income')},
     ],
     [t],
   );
@@ -71,10 +72,10 @@ export default function TransactionScreen({navigation, route}: Props) {
       time: `${String(now.getHours()).padStart(2, '0')}:${String(
         now.getMinutes(),
       ).padStart(2, '0')}`,
-      fromAccountId: undefined,
+      fromAccountId: '',
       toAccountId: undefined,
       description: '',
-      tags: [],
+      tagIds: [],
     }),
     [transactionType],
   );
@@ -91,7 +92,7 @@ export default function TransactionScreen({navigation, route}: Props) {
           'From account is a required field',
         ),
         toAccountId: Yup.string().when('transactionType', {
-          is: TransactionType.TRANSFER,
+          is: TransactionTypeEnum.TRANSFER,
           then: schema => schema.required('To account is a required field'),
           otherwise: schema => schema.notRequired(),
         }),
@@ -101,15 +102,16 @@ export default function TransactionScreen({navigation, route}: Props) {
 
   const onSubmit = useCallback((values: typeof initialValues) => {
     const dateTime = composeDateTime(values.date, values.time);
-    const isTransfer = values.transactionType === TransactionType.TRANSFER;
+    const isTransfer = values.transactionType === TransactionTypeEnum.TRANSFER;
 
-    const payload = {
+    const payload: Transaction = {
+      id: '', // <- TODO figure out ID generation strategy
       transactionType: values.transactionType,
       amount: values.amount,
       fromAccountId: values.fromAccountId,
       toAccountId: isTransfer ? values.toAccountId : undefined,
       description: values.description,
-      tags: values.tags,
+      tagIds: values.tagIds,
       dateTime: dateTime ? dateTime.toISOString() : undefined,
       timezoneOffsetMinutes: dateTime
         ? -dateTime.getTimezoneOffset()
@@ -185,7 +187,7 @@ export default function TransactionScreen({navigation, route}: Props) {
             showSearch={false}
             style={{backgroundColor: theme.colors.background}}
           />
-          {formik.values.transactionType === TransactionType.TRANSFER && (
+          {formik.values.transactionType === TransactionTypeEnum.TRANSFER && (
             <Field
               component={FormikSelectInput}
               name="toAccountId"
@@ -205,7 +207,7 @@ export default function TransactionScreen({navigation, route}: Props) {
           />
           <Field
             component={FormikSelectTags}
-            name="tags"
+            name="tagIds"
             label="Tags"
             tagsData={dummyTags}
           />

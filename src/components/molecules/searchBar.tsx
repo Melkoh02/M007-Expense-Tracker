@@ -1,5 +1,7 @@
 import React, {useRef, useState} from 'react';
+
 import {TextInput} from 'react-native';
+
 import {useNavigation} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
 import {Avatar, IconButton, Searchbar} from 'react-native-paper';

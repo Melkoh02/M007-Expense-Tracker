@@ -1,16 +1,17 @@
-import {TransactionType} from '../constants/transaction';
 import {TFunction} from 'i18next';
+
+import {TransactionTypeEnum} from '../constants/transaction';
 
 /**
  * Maps enum → localized label.
  */
 export const getTransactionTypeLabel = (
   t: TFunction,
-  type: TransactionType,
+  type: TransactionTypeEnum,
 ) => {
   return {
-    [TransactionType.EXPENSE]: t('common.expense'),
-    [TransactionType.TRANSFER]: t('common.transfer'),
-    [TransactionType.INCOME]: t('common.income'),
+    [TransactionTypeEnum.EXPENSE]: t('common.expense'),
+    [TransactionTypeEnum.TRANSFER]: t('common.transfer'),
+    [TransactionTypeEnum.INCOME]: t('common.income'),
   }[type];
 };
