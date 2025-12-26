@@ -31,7 +31,7 @@ const renderTransactionItem = (
           numberOfLines={1}
           ellipsizeMode="tail"
           style={styles.description}>
-          {`${item.description}`}
+          {item.description}
         </Text>
       </View>
       <Text
