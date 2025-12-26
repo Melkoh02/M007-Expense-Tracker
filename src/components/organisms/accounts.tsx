@@ -39,11 +39,7 @@ const AccountsGrid: React.FC<Props> = ({accountsData}) => {
       {hasAccounts ? (
         <View style={styles.container}>
           {accountsData.map(acc => (
-            <TouchableRipple
-              key={acc.name}
-              onPress={acc.onPress}
-              borderless
-              style={styles.ripple}>
+            <TouchableRipple key={acc.name} borderless style={styles.ripple}>
               <Surface elevation={2} style={styles.pill}>
                 <View style={[styles.leftBlock, {backgroundColor: acc.color}]}>
                   <Text style={{...styles.leftText, color: theme.colors.white}}>
