@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
 
 import {StyleSheet, View} from 'react-native';
 
@@ -59,69 +59,71 @@ const AccountsModal = ({isVisible, onDismiss}: Props) => {
     );
   }, [accountsStore.accounts, deletedIds, draftAccounts, isVisible]);
 
-  const onCancel = () => {
-    // Nothing is committed until confirm.
+  const onCancel = useCallback(() => {
     onDismiss();
-  };
+  }, [onDismiss]);
 
-  const addDraftAccount = () => {
+  const addDraftAccount = useCallback(() => {
     const trimmed = newAccountName.trim();
     if (!trimmed) return;
 
     setDraftAccounts(prev => [
       ...prev,
       {
+        // UI-only id for draft list rendering and edits.
         id: `new-${Date.now()}-${Math.random().toString(16).slice(2)}`,
         name: trimmed,
         isNew: true,
       },
     ]);
     setNewAccountName('');
-  };
+  }, [newAccountName]);
 
-  const markDeleted = (id: string) => {
+  const markDeleted = useCallback((id: string) => {
     setDraftAccounts(prev => prev.filter(a => a.id !== id));
     setDeletedIds(prev => {
       const next = new Set(prev);
-      // Only track deletions for existing accounts.
+      // Only track deletions for existing accounts (not draft-only items).
       if (!id.startsWith('new-')) next.add(id);
       return next;
     });
-  };
+  }, []);
 
-  const updateDraftName = (id: string, name: string) => {
+  const updateDraftName = useCallback((id: string, name: string) => {
     setDraftAccounts(prev => prev.map(a => (a.id === id ? {...a, name} : a)));
-  };
+  }, []);
 
-  const onConfirm = () => {
-    // 1) Apply edits to existing accounts
+  const onConfirm = useCallback(() => {
+    // 1) Renames / edits to existing accounts (batch updates)
     const draftById = new Map(
       draftAccounts.filter(a => !a.isNew).map(a => [a.id, a.name.trim()]),
     );
 
-    const edited = accountsStore.accounts.map(acc => {
+    const updates: Array<{id: string; patch: {name: string}}> = [];
+    for (const acc of accountsStore.accounts) {
       const nextName = draftById.get(acc.id);
-      if (nextName === undefined) return acc;
-      return {...acc, name: nextName || acc.name};
-    });
+      if (nextName === undefined) continue;
+      if (nextName && nextName !== acc.name)
+        updates.push({id: acc.id, patch: {name: nextName}});
+    }
 
-    accountsStore.setAccounts(edited);
+    accountsStore.updateAccounts(updates);
 
-    // 2) Apply deletions
+    // 2) Deletions
     accountsStore.deleteAccounts(Array.from(deletedIds));
 
-    // 3) Add new accounts
-    const newOnes = draftAccounts
+    // 3) Additions (store generates real persisted IDs via generateId)
+    const newNames = draftAccounts
       .filter(a => a.isNew)
       .map(a => a.name.trim())
       .filter(Boolean);
 
-    for (const name of newOnes) {
+    for (const name of newNames) {
       accountsStore.addAccount({...DEFAULT_NEW_ACCOUNT, name});
     }
 
     onDismiss();
-  };
+  }, [accountsStore, deletedIds, draftAccounts, onDismiss]);
 
   return (
     <BaseModal
@@ -189,15 +191,6 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     backgroundColor: 'transparent',
-  },
-  divider: {
-    marginVertical: 6,
-    opacity: 0.2,
-  },
-  emptyHint: {
-    marginTop: 6,
-    opacity: 0.7,
-    fontStyle: 'italic',
   },
 });
 

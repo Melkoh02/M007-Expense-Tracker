@@ -6,6 +6,11 @@ export const generateId = (): string => {
   return `A${Math.random().toString(16).slice(2, 10).toUpperCase()}`;
 };
 
+type AccountUpdate = {
+  id: string;
+  patch: Partial<Omit<Account, 'id'>>;
+};
+
 export default class AccountsStore {
   accounts: Account[] = [];
 
@@ -15,6 +20,25 @@ export default class AccountsStore {
 
   setAccounts(data: Account[]) {
     this.accounts = data;
+  }
+
+  updateAccounts(updates: AccountUpdate[]) {
+    if (!updates.length) return;
+
+    const patchesById = new Map<string, AccountUpdate['patch']>();
+    for (const u of updates) patchesById.set(u.id, u.patch);
+
+    let changed = false;
+
+    const next = this.accounts.map(acc => {
+      const patch = patchesById.get(acc.id);
+      if (!patch) return acc;
+
+      changed = true;
+      return {...acc, ...patch};
+    });
+
+    if (changed) this.accounts = next;
   }
 
   addAccount(account: Omit<Account, 'id'>) {
