@@ -70,7 +70,7 @@ const AddAccountModal = ({isVisible, onDismiss}: Props) => {
     <BaseModal
       title={t('modals.addAccount.title', 'Add Account')}
       isVisible={isVisible}
-      onDismiss={onDismiss}
+      onDismiss={onModalDismiss}
       content={
         <View style={styles.content}>
           <FormikProvider value={formik}>
