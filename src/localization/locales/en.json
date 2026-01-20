@@ -128,7 +128,7 @@
     "title": "Summary"
   },
   "accounts": {
-    "title": "Mis Cuentas",
+    "title": "My accounts",
     "noAccounts": "You don't have any accounts yet. Create one by clicking on the + button on the top right corner!"
   },
   "transaction": {

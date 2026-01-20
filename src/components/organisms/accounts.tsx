@@ -8,7 +8,7 @@ import {IconButton, Surface, Text, TouchableRipple} from 'react-native-paper';
 import {getCurrencySymbol} from '../../lib/helpers/getCurrecySymbol.ts';
 import {useTheme} from '../../lib/hooks/useAppTheme.ts';
 import {Account} from '../../lib/types/transaction.ts';
-import AccountsModal from './accountsModal.tsx';
+import AddAccountModal from './addAccountModal.tsx';
 
 type Props = {
   accountsData: Account[];
@@ -31,7 +31,7 @@ const AccountsGrid: React.FC<Props> = ({accountsData}) => {
         </Text>
         <IconButton
           size={20}
-          icon={hasAccounts ? 'pencil' : 'plus'}
+          icon={'plus'}
           style={{marginRight: 0}}
           onPress={() => setModalVisible(true)}
         />
@@ -61,7 +61,7 @@ const AccountsGrid: React.FC<Props> = ({accountsData}) => {
           <Text style={styles.emptyText}>{t('accounts.noAccounts')}</Text>
         </View>
       )}
-      <AccountsModal
+      <AddAccountModal
         isVisible={modalVisible}
         onDismiss={() => setModalVisible(false)}
       />
