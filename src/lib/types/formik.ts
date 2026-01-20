@@ -51,7 +51,7 @@ export type FormikNumberInputProps = BaseFormikInputProps & {
 };
 
 export type FormikAmountInputProps = BaseFormikInputProps & {
-  currencySymbol: string; // e.g. "$"
+  currencySymbol?: string; // e.g. "$"
 };
 
 export type FormikDateInputProps = FieldProps &

@@ -11,6 +11,7 @@ import {getSelectOptions} from '../../lib/helpers/formik.tsx';
 import {useTheme} from '../../lib/hooks/useAppTheme';
 import {useStore} from '../../lib/hooks/useStore';
 import {Account} from '../../lib/types/transaction';
+import FormikAmountInput from '../formik/FormikAmountInput.tsx';
 import FormikSelectInput from '../formik/FormikSelectInput.tsx';
 import FormikTextInput from '../formik/FormikTextInput.tsx';
 import BaseModal from '../molecules/modal';
@@ -38,7 +39,7 @@ const AddAccountModal = ({isVisible, onDismiss}: Props) => {
   const initialValues = useMemo<Omit<Account, 'id'>>(
     () => ({
       name: '',
-      currentTotal: '',
+      currentTotal: 0,
       currency: '1',
       color: '#4b6c95',
     }),
@@ -81,10 +82,9 @@ const AddAccountModal = ({isVisible, onDismiss}: Props) => {
               style={styles.input}
             />
             <Field
-              component={FormikTextInput}
+              component={FormikAmountInput}
               name={'currentTotal'}
               label={'Initial Balance'}
-              placeholder={'Type the initial balance'}
               style={styles.input}
             />
             <Field

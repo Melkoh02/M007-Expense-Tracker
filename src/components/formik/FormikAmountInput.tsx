@@ -34,7 +34,7 @@ export default function FormikAmountInput({
       sanitizeMode="amount"
       displayValue={displayValue}
       keyboardType="decimal-pad"
-      left={<TextInput.Affix text={currencySymbol} />}
+      left={currencySymbol ? <TextInput.Affix text={currencySymbol} /> : null}
     />
   );
 }

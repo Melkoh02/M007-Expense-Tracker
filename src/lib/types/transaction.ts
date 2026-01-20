@@ -3,7 +3,7 @@ import {TransactionTypeEnum} from '../constants/transaction.ts';
 export type Account = {
   id: string;
   name: string;
-  currentTotal: string;
+  currentTotal: number;
   currency: string;
   color?: string;
 };
