@@ -2,6 +2,10 @@ import React from 'react';
 
 import {StyleProp, View, ViewStyle} from 'react-native';
 
+import {TFunction} from 'i18next';
+
+import {SelectInputOptionsProp} from '../types/selectInput.ts';
+
 type ChildrenProps = {
   children: React.ReactNode;
 };
@@ -52,3 +56,17 @@ export const Col = ({children, flex = 1, style}: ColProps) => {
     </View>
   );
 };
+
+type HasIdAndLabelKey = {
+  id: string;
+  labelKey: string;
+};
+
+export const getSelectOptions = (
+  t: TFunction,
+  arr: readonly HasIdAndLabelKey[],
+): SelectInputOptionsProp[] =>
+  arr.map(({id, labelKey}) => ({
+    id,
+    value: t(labelKey),
+  }));

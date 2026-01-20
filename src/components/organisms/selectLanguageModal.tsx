@@ -5,8 +5,8 @@ import {StyleSheet} from 'react-native';
 import {useTranslation} from 'react-i18next';
 
 import {SUPPORTED_LANGUAGES} from '../../lib/constants/languages';
+import {getSelectOptions} from '../../lib/helpers/formik.tsx';
 import {useStore} from '../../lib/hooks/useStore';
-import {SelectInputOptionsProp} from '../../lib/types/selectInput.ts';
 import BaseModal from '../molecules/modal';
 import SelectInput from '../molecules/selectInput';
 
@@ -22,13 +22,8 @@ export default function SelectLanguageModal({isVisible, onDismiss}: Props) {
   // Local state to stage the choice before confirmation:
   const [selectedLang, setSelectedLang] = useState(languageStore.language);
 
-  // Map the constant list into `Option[]` for SelectInput:
-  const languageOptions: SelectInputOptionsProp[] = useMemo(
-    () =>
-      SUPPORTED_LANGUAGES.map(lang => ({
-        id: lang.id,
-        value: t(lang.labelKey),
-      })),
+  const languageOptions = useMemo(
+    () => getSelectOptions(t, SUPPORTED_LANGUAGES),
     [t],
   );
 

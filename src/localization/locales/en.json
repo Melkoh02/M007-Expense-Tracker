@@ -151,5 +151,15 @@
   "backendRes": {
     "successLogin": "Logged in! :D",
     "badReqLogin": "Incorrect Email or Password, please try again"
+  },
+  "currency": {
+    "USD": {
+      "label": "USD - United States",
+      "symbol": "$"
+    },
+    "PYG": {
+      "label": "PYG - Paraguay",
+      "symbol": "₲"
+    }
   }
 }

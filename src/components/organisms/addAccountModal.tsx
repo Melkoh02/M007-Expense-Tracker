@@ -6,9 +6,12 @@ import {Field, FormikProvider, useFormik} from 'formik';
 import {useTranslation} from 'react-i18next';
 import * as Yup from 'yup';
 
+import {SUPPORTED_CURRENCIES} from '../../lib/constants/currency.ts';
+import {getSelectOptions} from '../../lib/helpers/formik.tsx';
 import {useTheme} from '../../lib/hooks/useAppTheme';
 import {useStore} from '../../lib/hooks/useStore';
 import {Account} from '../../lib/types/transaction';
+import FormikSelectInput from '../formik/FormikSelectInput.tsx';
 import FormikTextInput from '../formik/FormikTextInput.tsx';
 import BaseModal from '../molecules/modal';
 
@@ -22,11 +25,21 @@ const AddAccountModal = ({isVisible, onDismiss}: Props) => {
   const theme = useTheme();
   const {accountsStore} = useStore();
 
+  const onModalDismiss = () => {
+    formik.resetForm();
+    onDismiss();
+  };
+
+  const currencyOptions = useMemo(
+    () => getSelectOptions(t, SUPPORTED_CURRENCIES),
+    [t],
+  );
+
   const initialValues = useMemo<Omit<Account, 'id'>>(
     () => ({
       name: '',
       currentTotal: '',
-      currency: 'USD',
+      currency: '1',
       color: '#4b6c95',
     }),
     [],
@@ -48,8 +61,7 @@ const AddAccountModal = ({isVisible, onDismiss}: Props) => {
         currency: values.currency,
         color: values.color,
       });
-      formik.resetForm();
-      onDismiss();
+      onModalDismiss();
     },
   });
 
@@ -66,28 +78,32 @@ const AddAccountModal = ({isVisible, onDismiss}: Props) => {
               name={'name'}
               label={'Name'}
               placeholder={'Type the account name'}
+              style={styles.input}
             />
             <Field
               component={FormikTextInput}
               name={'currentTotal'}
               label={'Initial Balance'}
-              placeholder={'Type the intial balance'}
+              placeholder={'Type the initial balance'}
+              style={styles.input}
             />
             <Field
-              component={FormikTextInput}
+              component={FormikSelectInput}
               name={'currency'}
               label={'Select Currency'}
-              placeholder={'Type the currency'}
+              showSearch={false}
+              options={currencyOptions}
+              style={styles.input}
             />
           </FormikProvider>
         </View>
       }
       actions={[
-        {text: t('common.cancel'), onPress: onDismiss},
+        {text: t('common.cancel'), onPress: onModalDismiss},
         {
           text: t('common.confirm'),
           onPress: () => formik.handleSubmit(),
-          disabled: false,
+          disabled: formik.isSubmitting || !formik.isValid || !formik.dirty,
         },
       ]}
     />
@@ -96,7 +112,7 @@ const AddAccountModal = ({isVisible, onDismiss}: Props) => {
 
 const styles = StyleSheet.create({
   content: {
-    paddingVertical: 4,
+    gap: 8,
   },
   input: {
     backgroundColor: 'transparent',
