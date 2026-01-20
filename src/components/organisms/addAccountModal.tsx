@@ -8,7 +8,6 @@ import * as Yup from 'yup';
 
 import {SUPPORTED_CURRENCIES} from '../../lib/constants/currency.ts';
 import {getSelectOptions} from '../../lib/helpers/formik.tsx';
-import {useTheme} from '../../lib/hooks/useAppTheme';
 import {useStore} from '../../lib/hooks/useStore';
 import {Account} from '../../lib/types/transaction';
 import FormikAmountInput from '../formik/FormikAmountInput.tsx';
@@ -23,7 +22,6 @@ type Props = {
 
 const AddAccountModal = ({isVisible, onDismiss}: Props) => {
   const {t} = useTranslation();
-  const theme = useTheme();
   const {accountsStore} = useStore();
 
   const onModalDismiss = () => {
